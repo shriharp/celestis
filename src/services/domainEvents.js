@@ -2,21 +2,6 @@
 export const DOMAIN_EVENTS = {
   zhuque: [
     {
-      id: "git-real-1",
-      title: "Git Real: Version Control in Practice",
-      description:
-        "Learn Git & GitHub workflows (commits, branching, collaboration). Master the fundamentals of version control and collaborative development.",
-      date: "2024-04-15",
-      time: "10:00 AM - 12:00 PM",
-      location: "Virtual",
-      instructor: "Sarah Chen",
-      capacity: 50,
-      registered: 32,
-      difficulty: "Beginner",
-      tags: ["Git", "GitHub", "Version Control"],
-      image: "/git-workshop.jpg",
-    },
-    {
       id: "web-foundations-1",
       title: "Web Foundations: Build Your First Site",
       description:
@@ -97,22 +82,20 @@ export const DOMAIN_EVENTS = {
       tags: ["UI/UX", "Figma", "Prototyping"],
       image: "/design-workshop.jpg",
     },
-  ],
-  cross: [
     {
-      id: "first-pr-1",
-      title: "First PR: From Zero to Open Source",
+      id: "git-real-1",
+      title: "Git Real: Version Control in Practice",
       description:
-        "Guided session to make the first real open-source contribution. Learn the open-source workflow.",
-      date: "2024-04-28",
-      time: "3:00 PM - 5:00 PM",
+        "Learn Git & GitHub workflows (commits, branching, collaboration). Master the fundamentals of version control and collaborative development.",
+      date: "2024-04-15",
+      time: "10:00 AM - 12:00 PM",
       location: "Virtual",
-      instructor: "Tom Wilson",
-      capacity: 60,
-      registered: 45,
+      instructor: "Sarah Chen",
+      capacity: 50,
+      registered: 32,
       difficulty: "Beginner",
-      tags: ["Open Source", "GitHub", "Contributing"],
-      image: "/opensource.jpg",
+      tags: ["Git", "GitHub", "Version Control"],
+      image: "/git-workshop.jpg",
     },
   ],
 };

@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Mail, Lock, Loader, User } from "lucide-react";
-import { loginUser } from "../services/authService";
+import { Lock, Loader, User } from "lucide-react";
 import { supabase } from "../lib/supabase";
 
 export default function Login() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
   const [formData, setFormData] = useState({
-    email: "",
+    registrationNumber: "",
     password: "",
   });
 
@@ -19,7 +19,7 @@ export default function Login() {
       ...prev,
       [name]: value,
     }));
-    setError(""); // Clear error on input change
+    setError("");
   };
 
   const handleSubmit = async (e) => {
@@ -27,21 +27,47 @@ export default function Login() {
     setLoading(true);
     setError("");
 
-    // Client-side validation
-    if (!formData.email || !formData.password) {
+    const { registrationNumber, password } = formData;
+
+    // ✅ validation
+    if (!registrationNumber || !password) {
       setError("Please fill in all fields");
       setLoading(false);
       return;
     }
 
-    const result = await loginUser(formData.email, formData.password);
+    try {
+      // 🔥 Step 1: get email from profiles
+      const { data: profile, error: profileError } = await supabase
+        .from("profiles")
+        .select("email")
+        .eq("registration_number", registrationNumber)
+        .single();
 
-    if (result.success) {
-      // Clear form and redirect
-      setFormData({ email: "", password: "" });
+      if (profileError || !profile) {
+        setError("User not found");
+        setLoading(false);
+        return;
+      }
+
+      // 🔥 Step 2: login with email
+      const { error: loginError } =
+        await supabase.auth.signInWithPassword({
+          email: profile.email,
+          password,
+        });
+
+      if (loginError) {
+        setError(loginError.message);
+        setLoading(false);
+        return;
+      }
+
+      // ✅ success
+      setFormData({ registrationNumber: "", password: "" });
       navigate("/");
-    } else {
-      setError(result.error || "Login failed. Please try again.");
+    } catch (err) {
+      setError("Something went wrong");
     }
 
     setLoading(false);
@@ -52,7 +78,7 @@ export default function Login() {
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold mb-2 text-github-textPrimary">
+          <h1 className="text-3xl font-bold mb-2">
             Welcome Back
           </h1>
           <p className="text-github-textMuted">
@@ -60,34 +86,31 @@ export default function Login() {
           </p>
         </div>
 
-        {/* Form Card */}
-        <div
-          className="rounded-lg border border-github-border p-8 mb-6"
-          style={{ backgroundColor: "var(--color-canvas)" }}
-        >
+        {/* Form */}
+        <div className="rounded-lg border border-github-border p-8 mb-6">
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Email Field */}
+            
+            {/* Username */}
             <div>
-              <label className="block text-sm font-semibold text-github-textPrimary mb-2">
-                Username
+              <label className="block text-sm font-semibold mb-2">
+                Registration Number
               </label>
               <div className="relative">
                 <User className="absolute left-3 top-3 w-4 h-4 text-github-textMuted" />
                 <input
-                  type="string"
+                  type="text"
                   name="registrationNumber"
                   value={formData.registrationNumber}
                   onChange={handleChange}
-                  placeholder=""
-                  className="w-full pl-10 pr-4 py-2.5 rounded-md text-github-textPrimary bg-github-bg border border-github-border focus:border-github-blue focus:outline-none transition-colors"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-md bg-github-bg border border-github-border focus:border-github-blue outline-none"
                   disabled={loading}
                 />
               </div>
             </div>
 
-            {/* Password Field */}
+            {/* Password */}
             <div>
-              <label className="block text-sm font-semibold text-github-textPrimary mb-2">
+              <label className="block text-sm font-semibold mb-2">
                 Password
               </label>
               <div className="relative">
@@ -97,25 +120,24 @@ export default function Login() {
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  placeholder=""
-                  className="w-full pl-10 pr-4 py-2.5 rounded-md text-github-textPrimary bg-github-bg border border-github-border focus:border-github-blue focus:outline-none transition-colors"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-md bg-github-bg border border-github-border focus:border-github-blue outline-none"
                   disabled={loading}
                 />
               </div>
             </div>
 
-            {/* Error Message */}
+            {/* Error */}
             {error && (
               <div className="p-3 rounded-md bg-red-100 border border-red-400 text-red-800 text-sm">
                 {error}
               </div>
             )}
 
-            {/* Submit Button */}
+            {/* Button */}
             <button
               type="submit"
               disabled={loading}
-              className="w-full btn-primary py-2.5 flex items-center justify-center font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full btn-primary py-2.5 flex items-center justify-center font-semibold"
             >
               {loading ? (
                 <>
@@ -128,24 +150,24 @@ export default function Login() {
             </button>
           </form>
 
-          {/* Forgot Password Link */}
+          {/* Forgot */}
           <div className="mt-4 text-center">
             <Link
               to="/forgot-password"
-              className="text-sm text-github-blue hover:underline transition-colors"
+              className="text-sm text-github-blue hover:underline"
             >
               Forgot your password?
             </Link>
           </div>
         </div>
 
-        {/* Register Link */}
+        {/* Register */}
         <div className="text-center">
           <p className="text-github-textMuted text-sm">
             Don't have an account?{" "}
             <Link
               to="/register"
-              className="text-github-blue font-semibold hover:underline transition-colors"
+              className="text-github-blue font-semibold hover:underline"
             >
               Create one now
             </Link>

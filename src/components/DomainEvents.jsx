@@ -43,8 +43,7 @@ export default function DomainEvents() {
   };
 
   const handleMoreInfo = (eventId) => {
-    // TODO: Implement more info modal or navigation
-    alert(`More info for event: ${eventId}`);
+    navigate(`/domains/${domainId}/events/${eventId}`);
   };
 
   if (loading) {
@@ -164,26 +163,11 @@ export default function DomainEvents() {
                   ))}
                 </div>
 
-                {/* Difficulty Badge */}
-                <div className="mb-4">
-                  <span
-                    className={`inline-block px-2 py-1 text-xs font-medium rounded-full ${
-                      event.difficulty === "Beginner"
-                        ? "bg-green-100 text-green-800 border border-green-200"
-                        : event.difficulty === "Intermediate"
-                          ? "bg-yellow-100 text-yellow-800 border border-yellow-200"
-                          : "bg-red-100 text-red-800 border border-red-200"
-                    }`}
-                  >
-                    {event.difficulty}
-                  </span>
-                </div>
-
                 {/* Action Buttons */}
                 <div className="flex gap-3">
                   <button
                     onClick={() => handleRegister(event.id)}
-                    className="flex-1 bg-github-blue text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-github-blueHover transition-colors"
+                    className="flex-1 bg-green-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-green-700 transition-colors"
                   >
                     Register
                   </button>

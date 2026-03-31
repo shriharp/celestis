@@ -7,21 +7,39 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useRef, useEffect } from "react";
 
 export default function Hero() {
   const navigate = useNavigate();
+  // 🔥 ref for h1
+  const headingRef = useRef(null);
+  useEffect(() => {
+    const hasScrolled = sessionStorage.getItem("heroScrolled");
+
+    if (!hasScrolled) {
+      scrollToHeading();
+      sessionStorage.setItem("heroScrolled", "true");
+    }
+  }, []);
+  const scrollToHeading = () => {
+    headingRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   return (
     <div className="w-full bg-github-bg">
       <div className="max-w-[1400px] mx-auto px-4 pt-5">
         {/* GitHub-style repo header */}
         <div className="flex items-center justify-between mb-6 pb-4 border-b border-github-border">
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center">
             <img
-              src="https://avatars.githubusercontent.com/u/1?v=4"
+              src="../assets/moss_transparent.png"
               alt="avatar"
-              className="w-8 h-8 rounded-full"
+              className="w-9 h-8 rounded-full"
             />
-            <div className="flex items-center space-x-2 text-sm">
+            <div className="flex items-center space-x-2 text-sm ml-1">
               <span className="text-github-textPrimary font-semibold">
                 MOSS
               </span>
@@ -39,9 +57,9 @@ export default function Hero() {
             </span>
           </div>
         </div>
-        {/* GitHub-style file explorer */}
+
+        {/* File explorer */}
         <div className="border border-github-border rounded-md overflow-hidden mb-8">
-          {/* File row */}
           <div className="flex items-center justify-between px-4 py-2 bg-github-bg hover:bg-github-border transition-colors border-t border-github-border">
             <div className="flex items-center space-x-3 text-sm">
               <svg
@@ -51,17 +69,25 @@ export default function Hero() {
               >
                 <path d="M4 0h5l5 5v9.25A1.75 1.75 0 0 1 12.25 16h-8.5A1.75 1.75 0 0 1 2 14.25v-12.5A1.75 1.75 0 0 1 3.75 0H4z" />
               </svg>
-              <span className="text-github-blue font-semibold cursor-pointer">
+
+              {/* 👇 click scroll */}
+              <span
+                onClick={scrollToHeading}
+                className="text-github-blue font-semibold cursor-pointer"
+              >
                 README.md
               </span>
             </div>
+
             <span className="text-xs text-github-textMuted">
               added 7 days of workshops
             </span>
           </div>
         </div>
+
         {/* Breadcrumb */}
-        <div className="flex items-center space-x-2 mb-6 text-sm">
+        {/* 👇 attach ref here */}
+        <div className="flex items-center space-x-2 mb-6 text-sm scroll-mt-32"  ref={headingRef} >
           <BookOpen className="w-4 h-4 text-github-textMuted" />
           <span className="text-github-textMuted">Open Source Week</span>
           <span className="text-github-textMuted">/</span>
