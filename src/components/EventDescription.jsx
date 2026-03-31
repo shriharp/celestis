@@ -84,7 +84,7 @@ export default function EventDescription() {
   }
 
   return (
-    <div className="min-h-screen pt-24 pb-12 bg-github-bg">
+    <div className="min-h-screen pt-4 pb-12 bg-github-bg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
@@ -160,23 +160,9 @@ export default function EventDescription() {
                       : "Register Now"}
                 </button>
 
-                <button
-                  onClick={handleSave}
-                  className="px-4 py-2 border border-github-border text-github-textPrimary rounded-md text-sm font-medium hover:bg-github-canvasHover transition-colors flex items-center gap-2"
-                >
-                  <BookmarkPlus
-                    className={`w-4 h-4 ${isSaved ? "fill-current" : ""}`}
-                  />
-                  Save
-                </button>
-
                 <button className="px-4 py-2 border border-github-border text-github-textPrimary rounded-md text-sm font-medium hover:bg-github-canvasHover transition-colors flex items-center gap-2">
                   <Share2 className="w-4 h-4" />
                   Share
-                </button>
-
-                <button className="px-4 py-2 border border-github-border text-github-textPrimary rounded-md text-sm font-medium hover:bg-github-canvasHover transition-colors">
-                  <Heart className="w-4 h-4" />
                 </button>
               </div>
             </div>
