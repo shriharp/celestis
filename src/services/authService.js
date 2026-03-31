@@ -1,4 +1,4 @@
-import { supabase } from '../lib/supabase';
+import { supabase } from "../lib/supabase";
 
 /**
  * Auth Service - Minimal backend integration layer
@@ -23,11 +23,12 @@ export const loginUser = async (email, password) => {
 // Register new user
 export const registerUser = async (formData) => {
   try {
-    const { name, email, registrationNumber, collegeName, password, confirmPassword } = formData;
+    const { name, email, registrationNumber, password, confirmPassword } =
+      formData;
 
     // Frontend validation (backend team can add server-side validation)
     if (password !== confirmPassword) {
-      return { success: false, error: 'Passwords do not match' };
+      return { success: false, error: "Passwords do not match" };
     }
 
     // Create auth user in Supabase
@@ -41,20 +42,17 @@ export const registerUser = async (formData) => {
     // Optional: Store additional user data in a users table
     // Backend team can customize this table structure
     if (authData.user) {
-      const { error: insertError } = await supabase
-        .from('users')
-        .insert([
-          {
-            id: authData.user.id,
-            name,
-            email,
-            registration_number: registrationNumber,
-            college_name: collegeName,
-            created_at: new Date(),
-          },
-        ]);
+      const { error: insertError } = await supabase.from("users").insert([
+        {
+          id: authData.user.id,
+          name,
+          email,
+          registration_number: registrationNumber,
+          created_at: new Date(),
+        },
+      ]);
 
-      if (insertError) console.warn('Could not insert user data:', insertError);
+      if (insertError) console.warn("Could not insert user data:", insertError);
     }
 
     return { success: true, user: authData.user };
@@ -81,7 +79,7 @@ export const getCurrentUser = async () => {
     if (error) throw error;
     return data.user;
   } catch (error) {
-    console.error('Error getting user:', error);
+    console.error("Error getting user:", error);
     return null;
   }
 };
