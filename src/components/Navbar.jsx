@@ -99,10 +99,7 @@ export default function Navbar() {
     let currentPath = "";
 
     return path
-      .filter(
-        (segment) =>
-          !segment.startsWith("eid_") && !segment.startsWith("events"),
-      ) // 🔥 ignore only eid_
+      .filter((segment) => !segment.startsWith("eid_") && !segment.startsWith("events")) // 🔥 ignore only eid_
       .map((segment) => {
         currentPath += `/${segment}`;
 
@@ -152,13 +149,7 @@ export default function Navbar() {
                 className="flex items-center space-x-2"
               >
                 <img
-                  src={
-                    user?.email
-                      ? `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(
-                          user.email,
-                        )}`
-                      : "https://api.dicebear.com/7.x/avataaars/svg?seed=default"
-                  }
+                  src={`https://avatars.dicebear.com/api/avataaars/${user?.email}.svg`}
                   className="w-8 h-8 rounded-full"
                 />
                 <span className="hidden sm:inline text-sm">

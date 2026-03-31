@@ -1,16 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import {
-  Calendar,
-  Clock,
-  MapPin,
-  Users,
-  User,
-  Tag,
-  ArrowLeft,
-} from "lucide-react";
+import { Calendar, Clock, MapPin, Users, Tag, ArrowLeft } from "lucide-react";
 import { getDomainEvents } from "../services/domainEvents";
 import { getDomains } from "../services/eventsService";
+import { supabase } from "../lib/supabase";
 
 export default function DomainEvents() {
   const { domainId } = useParams();
@@ -18,15 +11,36 @@ export default function DomainEvents() {
   const [events, setEvents] = useState([]);
   const [domain, setDomain] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [registeredWorkshops, setRegisteredWorkshops] = useState([]);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     async function loadData() {
       try {
+        // Get current user
+        const { data: { user: currentUser } } = await supabase.auth.getUser();
+        if (!currentUser) {
+          navigate("/login");
+          return;
+        }
+        setUser(currentUser);
+
+        // Get user registrations
+        const { data: registrations, error } = await supabase
+          .from("registrations")
+          .select("workshop_id")
+          .eq("user_id", currentUser.id);
+        if (error) throw error;
+
+        setRegisteredWorkshops(registrations.map((r) => r.workshop_id));
+
+        // Load domain
         const domainData = await getDomains();
         const foundDomain = domainData.find((d) => d.id === domainId);
         setDomain(foundDomain);
 
-        const eventsData = getDomainEvents(domainId);
+        // Load events
+        const eventsData = await getDomainEvents(domainId);
         setEvents(eventsData);
       } catch (error) {
         console.error("Error loading domain events:", error);
@@ -34,12 +48,26 @@ export default function DomainEvents() {
         setLoading(false);
       }
     }
-    loadData();
-  }, [domainId]);
 
-  const handleRegister = (eventId) => {
-    // TODO: Implement registration logic
-    alert(`Registering for event: ${eventId}`);
+    loadData();
+  }, [domainId, navigate]);
+
+  const handleRegister = async (event) => {
+    if (!user) return;
+
+    try {
+      const workshop_id = `${domainId}.${event.id}`;
+      const { error } = await supabase
+        .from("registrations")
+        .insert({ user_id: user.id, workshop_id });
+      if (error) throw error;
+
+      // Update local state to show “Registered”
+      setRegisteredWorkshops((prev) => [...prev, workshop_id]);
+    } catch (err) {
+      console.error("Registration failed:", err);
+      alert("Failed to register for this event.");
+    }
   };
 
   const handleMoreInfo = (eventId) => {
@@ -82,7 +110,6 @@ export default function DomainEvents() {
               {domain.name}
             </h1>
           </div>
-
           <p className="text-github-textMuted">
             Explore workshops and events in the {domain.name} domain
           </p>
@@ -90,87 +117,92 @@ export default function DomainEvents() {
 
         {/* Events Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {events.map((event) => (
-            <div
-              key={event.id}
-              className="bg-github-canvas border border-github-border rounded-lg overflow-hidden hover:border-github-borderHover transition-all duration-300 hover:shadow-lg"
-            >
-              {/* Event Image */}
-              {event.image && (
-                <div className="w-full h-48 overflow-hidden bg-github-bg">
-                  <img
-                    src={event.image}
-                    alt={event.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              )}
+          {events.map((event) => {
+            const workshop_id = `${domainId}.${event.id}`;
+            const isRegistered = registeredWorkshops.includes(workshop_id);
 
-              {/* Event Content */}
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-github-textPrimary mb-3 line-clamp-2">
-                  {event.title}
-                </h3>
+            return (
+              <div
+                key={event.id}
+                className="bg-github-canvas border border-github-border rounded-lg overflow-hidden hover:border-github-borderHover transition-all duration-300 hover:shadow-lg"
+              >
+                {event.image && (
+                  <div className="w-full h-48 overflow-hidden bg-github-bg">
+                    <img
+                      src={event.image}
+                      alt={event.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
 
-                <p className="text-github-textMuted text-sm mb-4 line-clamp-3">
-                  {event.shortDescription || event.description}
-                </p>
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold text-github-textPrimary mb-3 line-clamp-2">
+                    {event.title}
+                  </h3>
+                  <p className="text-github-textMuted text-sm mb-4 line-clamp-3">
+                    {event.shortDescription || event.description}
+                  </p>
 
-                {/* Event Details */}
-                <div className="space-y-2 mb-4">
-                  <div className="flex items-center text-sm text-github-textMuted">
-                    <Calendar className="w-4 h-4 mr-2" />
-                    {new Date(event.date).toLocaleDateString()}
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-center text-sm text-github-textMuted">
+                      <Calendar className="w-4 h-4 mr-2" />
+                      {new Date(event.date).toLocaleDateString()}
+                    </div>
+                    <div className="flex items-center text-sm text-github-textMuted">
+                      <Clock className="w-4 h-4 mr-2" />
+                      {event.time}
+                    </div>
+                    <div className="flex items-center text-sm text-github-textMuted">
+                      <MapPin className="w-4 h-4 mr-2" />
+                      {event.location}
+                    </div>
+                    <div className="flex items-center text-sm text-github-textMuted">
+                      <Users className="w-4 h-4 mr-2" />
+                      {event.registered}/{event.capacity} registered
+                    </div>
                   </div>
 
-                  <div className="flex items-center text-sm text-github-textMuted">
-                    <Clock className="w-4 h-4 mr-2" />
-                    {event.time}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {event.tags.map((tag, index) => (
+                      <span
+                        key={index}
+                        className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-github-bg border border-github-border text-github-textMuted"
+                      >
+                        <Tag className="w-3 h-3 mr-1" />
+                        {tag}
+                      </span>
+                    ))}
                   </div>
 
-                  <div className="flex items-center text-sm text-github-textMuted">
-                    <MapPin className="w-4 h-4 mr-2" />
-                    {event.location}
-                  </div>
+                  <div className="flex gap-3">
+                    {isRegistered ? (
+                      <button
+                        disabled
+                        className="flex-1 bg-gray-400 text-white px-4 py-2 rounded-md text-sm font-medium cursor-not-allowed"
+                      >
+                        Registered
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => handleRegister(event)}
+                        className="flex-1 bg-green-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-green-700 transition-colors"
+                      >
+                        Register
+                      </button>
+                    )}
 
-                  <div className="flex items-center text-sm text-github-textMuted">
-                    <Users className="w-4 h-4 mr-2" />
-                    {event.registered}/{event.capacity} registered
-                  </div>
-                </div>
-
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {event.tags.map((tag, index) => (
-                    <span
-                      key={index}
-                      className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-github-bg border border-github-border text-github-textMuted"
+                    <button
+                      onClick={() => handleMoreInfo(event.id)}
+                      className="flex-1 border border-github-border text-github-textPrimary px-4 py-2 rounded-md text-sm font-medium hover:bg-github-canvasHover transition-colors"
                     >
-                      <Tag className="w-3 h-3 mr-1" />
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex gap-3">
-                  <button
-                    onClick={() => handleRegister(event.id)}
-                    className="flex-1 bg-green-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-green-700 transition-colors"
-                  >
-                    Register
-                  </button>
-
-                  <button
-                    onClick={() => handleMoreInfo(event.id)}
-                    className="flex-1 border border-github-border text-github-textPrimary px-4 py-2 rounded-md text-sm font-medium hover:bg-github-canvasHover transition-colors"
-                  >
-                    More
-                  </button>
+                      More
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {events.length === 0 && (
