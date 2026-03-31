@@ -38,14 +38,14 @@ export default function EventDescription() {
 
     return count || 0;
   };
-
+  const regId = domainId + "." + eventId;
   // 🔥 Check if user registered
   const checkRegistration = async (userId) => {
     const { data } = await supabase
       .from("registrations")
       .select("id")
       .eq("user_id", userId)
-      .eq("workshop_id", eventId)
+      .eq("workshop_id", regId)
       .maybeSingle();
 
     return !!data;
@@ -58,7 +58,7 @@ export default function EventDescription() {
         setEvent(eventData);
 
         // 🔥 get count
-        const count = await getRegistrationCount(eventId);
+        const count = await getRegistrationCount(regId);
         setRegistrationCount(count);
 
         // 🔥 check user
