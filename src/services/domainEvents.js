@@ -137,7 +137,7 @@ export const DOMAIN_EVENTS = {
       capacity: 60,
       registered: 0,
       tags: ["Electronics", "Arduino", "Circuit Design"],
-      clubs: ["IEnC"],
+      clubs: ["IE-EnC"],
       image: opencircuit,
     },
   ],

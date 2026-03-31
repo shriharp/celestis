@@ -159,10 +159,7 @@ export default function DomainEvents() {
                       <MapPin className="w-4 h-4 mr-2" />
                       {event.location}
                     </div>
-                    <div className="flex items-center text-sm text-github-textMuted">
-                      <Users className="w-4 h-4 mr-2" />
-                      {event.registered}/{event.capacity} registered
-                    </div>
+
                   </div>
 
                   <div className="flex flex-wrap gap-2 mb-4">
