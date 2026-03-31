@@ -1,50 +1,52 @@
 import { supabase } from "../lib/supabase";
 
+// Import images
+import webdevImage from "../images/webdevlopment.png";
+import aiMlImage from "../images/AI_ML theme.png";
+import systemsImage from "../images/System_electronics.png";
+import codingImage from "../images/coding.png";
+
 // Mock data to be used until Supabase backend is fully populated
 const MOCK_DOMAINS = [
   {
     id: "eid_zhuque",
     name: "Web Development",
-    symbol: "Vermilion Bird (Zhuque)",
     color: "zhuque",
     bgLight: "from-zhuque-dark/40 to-zhuque/10",
     border: "border-zhuque/30",
     text: "text-zhuque-light",
-    image: "/bird_tiger.jpg",
-    imagePosition: "left center", // Crop left side internally
+    image: webdevImage,
+    imagePosition: "center top", // Crop left side internally
   },
   {
     id: "eid_qinglong",
     name: "AI/ML",
-    symbol: "Azure Dragon (Qinglong)",
     color: "qinglong",
     bgLight: "from-qinglong-dark/40 to-qinglong/10",
     border: "border-qinglong/30",
     text: "text-qinglong-light",
-    image: "/dragon.jpg",
-    imagePosition: "center",
+    image: aiMlImage,
+    imagePosition: "center top",
   },
   {
     id: "eid_baihu",
     name: "Systems & Electronics",
-    symbol: "White Tiger (Baihu)",
     color: "baihu",
     bgLight: "from-baihu-dark/40 to-baihu/10",
     border: "border-baihu/30",
     text: "text-baihu-light",
-    image: "/bird_tiger.jpg",
-    imagePosition: "right center", // Crop right side internally
+    image: systemsImage,
+    imagePosition: "center top", // Crop right side internally
   },
   {
     id: "eid_xuanwu",
     name: "Coding & Design",
-    symbol: "Black Tortoise (Xuanwu)",
     color: "xuanwu",
     bgLight: "from-xuanwu-dark/60 to-xuanwu/20",
     border: "border-xuanwu/50",
     text: "text-gray-300",
-    image: "/tortoise.jpg",
-    imagePosition: "center",
+    image: codingImage,
+    imagePosition: "center top",
   },
 ];
 

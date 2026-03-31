@@ -1,4 +1,4 @@
-import { DOMAIN_EVENTS } from "./domainEvents";
+import { DOMAIN_EVENTS, getClubsByNames } from "./domainEvents";
 
 /**
  * Fetch event details by domainId and eventId
@@ -43,45 +43,37 @@ export async function getEventById(domainId, eventId) {
         "Enthusiasm to learn!",
       ],
 
-      speakers: event.speakers || [
-        {
-          id: "speaker-1",
-          name: event.instructor,
-          role: "Workshop Instructor",
-          image:
-            "https://api.dicebear.com/7.x/avataaars/svg?seed=" +
-            event.instructor,
-        },
-        {
-          id: "speaker-2",
-          name: event.instructor,
-          role: "Workshop Instructor",
-          image:
-            "https://api.dicebear.com/7.x/avataaars/svg?seed=" +
-            event.instructor,
-        },
-        {
-          id: "speaker-3",
-          name: event.instructor,
-          role: "Workshop Instructor",
-          image:
-            "https://api.dicebear.com/7.x/avataaars/svg?seed=" +
-            event.instructor,
-        },
-      ],
+      speakers:
+        event.speakers ||
+        (Array.isArray(event.instructor)
+          ? event.instructor.map((instructor, idx) => ({
+              id: `speaker-${idx + 1}`,
+              name: instructor,
+              role: "Workshop Instructor",
+              image:
+                "https://api.dicebear.com/7.x/avataaars/svg?seed=" + instructor,
+            }))
+          : [
+              {
+                id: "speaker-1",
+                name: event.instructor,
+                role: "Workshop Instructor",
+                image:
+                  "https://api.dicebear.com/7.x/avataaars/svg?seed=" +
+                  event.instructor,
+              },
+            ]),
 
-      clubs: event.clubs || [
-        {
-          id: "club-1",
-          name: "Open Source Club",
-          image: "https://api.dicebear.com/7.x/avataaars/svg?seed=club1",
-        },
-        {
-          id: "club-2",
-          name: "Code Masters",
-          image: "https://api.dicebear.com/7.x/avataaars/svg?seed=club2",
-        },
-      ],
+      clubs:
+        event.clubs && Array.isArray(event.clubs)
+          ? getClubsByNames(event.clubs)
+          : [
+              {
+                id: "club-1",
+                name: "Open Source Club",
+                image: "https://api.dicebear.com/7.x/avataaars/svg?seed=club1",
+              },
+            ],
 
       duration: event.duration || "2-3 hours",
       type: event.type || "Workshop",

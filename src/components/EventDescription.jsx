@@ -119,9 +119,11 @@ export default function EventDescription() {
               </h1>
 
               <div className="flex flex-wrap gap-4 items-center mb-6 text-sm text-github-textMuted border-b border-github-border pb-6">
-                <div className="flex items-center">
+                <div className="flex items-center flex-wrap gap-2">
                   <User className="w-4 h-4 mr-2" />
-                  {event.instructor}
+                  {Array.isArray(event.instructor)
+                    ? event.instructor.join(" • ")
+                    : event.instructor}
                 </div>
                 <div className="flex items-center">
                   <Users className="w-4 h-4 mr-2" />

@@ -1,101 +1,180 @@
 // Domain events data
+
+import webfoundations from "../images/web_foundation.png";
+import stacklab from "../images/stack_lab.png";
+import mllab from "../images/ML_Labs.png";
+import insidellms from "../images/Inside_llm.png";
+import opencircuit from "../images/open_circuits.png";
+import designtodev from "../images/design_to_dev.png";
+import git_real from "../images/git_real.png";
+
+// Clubs mapping - define all available clubs here
+export const CLUBS_MAP = {
+  MOSS: {
+    id: "club-opensource",
+    name: "MOSS",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=opensourceclub",
+    bio: "MOSS",
+  },
+  ACM: {
+    id: "club-acm",
+    name: "ACM",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=codemasters",
+    bio: "ACM",
+  },
+  ACMW: {
+    id: "club-acmw",
+    name: "ACMW",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=acmw",
+    bio: "ACMW",
+  },
+  IEnC: {
+    id: "club-ienc",
+    name: "IEnC",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=devopsclub",
+    bio: "IEnC",
+  },
+  ISTE: {
+    id: "club-iste",
+    name: "ISTE",
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=aimlclub",
+    bio: "ISTE",
+  },
+};
+
+// Helper function to get club objects from club names
+export function getClubsByNames(clubNames = []) {
+  return clubNames.map(
+    (name) => CLUBS_MAP[name] || { id: name, name, image: "" },
+  );
+}
+
 export const DOMAIN_EVENTS = {
   eid_zhuque: [
     {
-      id: "web-foundations-1",
+      id: "eid_web-foundations-1",
       title: "Web Foundations: Build Your First Site",
+      shortDescription:
+        "Start your web dev journey by building and deploying your first website.\nLearn HTML, CSS, and JavaScript in a simple, hands-on way.",
       description:
-        "Build and deploy a basic website using HTML, CSS, JavaScript. Learn the core technologies that power the web.",
-      date: "2024-04-16",
-      time: "2:00 PM - 5:00 PM",
-      location: "Room 101",
-      instructor: "Mike Johnson",
-      capacity: 40,
-      registered: 28,
-      difficulty: "Beginner",
+        "Every digital product starts with the web. This beginner-friendly workshop introduces participants to the fundamentals of web development through a fully hands-on approach.\n\nParticipants will build a simple website using HTML, CSS, and basic JavaScript, learning how structure, styling, and interactivity come together to create functional web pages. The session focuses on clarity and simplicity, making it accessible even to those with no prior experience.\n\nThe workshop concludes with deployment, allowing participants to host their website and turn it into a shareable project — providing an immediate starting point for portfolios and further development.",
+      date: "2026-04-6",
+      time: "To Be Decided",
+      location: "To Be Decided",
+      instructor: ["Anish", "Vishal Kumar"],
+      capacity: 60,
+      registered: 0,
       tags: ["HTML", "CSS", "JavaScript"],
-      image: "/web-dev.jpg",
+      clubs: ["ACM", "MOSS"],
+      image: webfoundations,
     },
     {
-      id: "stack-lab-1",
+      id: "eid_stack-lab-1",
       title: "Stack Lab: Build a Full-Stack App",
+      shortDescription:
+        "Build a complete app from frontend to backend.\nUnderstand APIs, servers, and how real-world systems come together.",
       description:
-        "Develop a complete application with frontend, backend, and APIs. Experience the full development lifecycle.",
-      date: "2024-04-18",
-      time: "9:00 AM - 4:00 PM",
-      location: "Lab 203",
-      instructor: "Alex Rivera",
-      capacity: 30,
-      registered: 25,
-      difficulty: "Intermediate",
+        "Real-world applications require seamless interaction between frontend interfaces, backend systems, and data storage. This workshop provides a practical introduction to full-stack development by guiding participants through building a complete application.\n\nParticipants will set up a backend server, create API endpoints, and connect them to a frontend interface. The session demonstrates how data flows through an application and how different components interact in real-world systems.\n\nBy the end of the workshop, participants will have built and run a functional full-stack application, gaining a clear understanding of system architecture and development workflows used in industry and open-source projects.",
+      date: "2026-04-7",
+      time: "To Be Decided",
+      location: "To Be Decided",
+      instructor: ["Viraj Rahul Gupta", "Pratyush Misra"],
+      capacity: 60,
+      registered: 0,
       tags: ["React", "Node.js", "MongoDB"],
-      image: "/fullstack.jpg",
+      clubs: ["ISTE"],
+      image: stacklab,
     },
   ],
   eid_qinglong: [
     {
-      id: "ml-lab-1",
+      id: "eid_ml-lab-1",
       title: "ML Lab: Build Your First End-to-End Model",
+      shortDescription:
+        "Go beyond theory and build a complete ML project from scratch.\nFrom data to deployment — understand the full machine learning workflow.",
       description:
-        "Cover data processing, model building, evaluation, and deployment. Hands-on machine learning from start to finish.",
-      date: "2024-04-20",
-      time: "10:00 AM - 3:00 PM",
-      location: "AI Lab",
-      instructor: "Dr. Emily Zhang",
-      capacity: 25,
-      registered: 22,
-      difficulty: "Intermediate",
+        "Machine learning is often taught in fragments, but real-world applications require understanding the entire pipeline. This workshop provides a structured, hands-on introduction to building a complete ML project from scratch.\n\nParticipants will define a problem, work with datasets, perform exploratory analysis, and train baseline models. The session emphasizes understanding model performance, handling overfitting, and improving results through simple optimization techniques.\n\nThe workshop concludes with an introduction to deployment, showing how models can be saved and presented through basic interfaces. By the end, participants will have built a functional ML project and gained clarity on how machine learning systems work end-to-end.",
+      date: "2026-04-5",
+      time: "To Be Decided",
+      location: "To Be Decided",
+      instructor: ["Dhruv Prakash", "Sarah", "Nihal B M"],
+      capacity: 60,
+      registered: 0,
       tags: ["Python", "Scikit-learn", "TensorFlow"],
-      image: "/ml-workshop.jpg",
+      clubs: ["MOSS"],
+      image: mllab,
+    },
+    {
+      id: "eid_ml-lab-2",
+      title: "Inside LLMs: Attention, Transformers & Scaling",
+      shortDescription:
+        "Understand how modern AI actually works.\nExplore transformers, attention, and the ideas behind large language models.",
+      description:
+        "Modern AI systems are powered by large language models, but understanding how they work requires going beyond surface-level usage. This session provides a conceptual deep dive into the architecture and principles behind these systems.\n\nParticipants will explore transformer models, attention mechanisms, tokenization, and embeddings, gaining insight into how models process and generate language. The session also introduces scaling laws and training paradigms that define the performance of modern AI systems.\n\nDesigned for those looking to move beyond basic usage, this workshop connects theory with real-world AI systems and provides a foundation for exploring advanced topics and research directions.",
+      date: "2026-04-5",
+      time: "To Be Decided",
+      location: "To Be Decided",
+      instructor: ["Mrinal Dhami", "Shreyan"],
+      capacity: 60,
+      registered: 0,
+      tags: ["Python", "Scikit-learn", "TensorFlow"],
+      clubs: ["ACM"],
+      image: insidellms,
     },
   ],
   eid_baihu: [
     {
-      id: "circuits-1",
+      id: "eid_circuits-1",
       title: "Open Circuits: Exploring Open-Source Hardware",
+      shortDescription:
+        "Step into electronics through hands-on circuit design and simulation.\nUnderstand how hardware works and how open-source powers real-world devices.",
       description:
-        "Introduction to electronics through simulation and circuit design. Build your first electronic projects.",
-      date: "2024-04-22",
-      time: "1:00 PM - 4:00 PM",
-      location: "Electronics Lab",
-      instructor: "Prof. David Kim",
-      capacity: 20,
-      registered: 18,
-      difficulty: "Beginner",
+        "Open source extends beyond software into the world of hardware, powering everything from IoT devices to embedded systems. This session introduces participants to the fundamentals of electronics through a hands-on, simulation-based approach.\n\nParticipants will learn how basic components like resistors, LEDs, and power sources interact within a circuit, and how these designs are created, tested, and shared using open-source tools. Using platforms like EasyEDA or similar environments, they will design and simulate simple circuits without requiring physical components.\n\nThe workshop also explores how hardware projects are documented and contributed to in open-source ecosystems, opening pathways into interdisciplinary domains like IoT and embedded systems.",
+      date: "2026-04-3",
+      time: "To Be Decided",
+      location: "To Be Decided",
+      instructor: ["Mahi Gupta", "Shreyan", "Pratham", "Sanvi Verma"],
+      capacity: 60,
+      registered: 0,
       tags: ["Electronics", "Arduino", "Circuit Design"],
-      image: "/electronics.jpg",
+      clubs: ["IEnC"],
+      image: opencircuit,
     },
   ],
   eid_xuanwu: [
     {
-      id: "design-dev-1",
+      id: "eid_design-dev-1",
       title: "Design to Dev: UI/UX for Real Projects",
+      shortDescription:
+        "Design interfaces that actually work.\nLearn UI/UX fundamentals and turn your designs into real, functional frontend code.",
       description:
-        "Learn UI/UX fundamentals and convert designs into real interfaces. Bridge the gap between design and development.",
-      date: "2024-04-25",
-      time: "11:00 AM - 2:00 PM",
-      location: "Design Studio",
-      instructor: "Lisa Park",
-      capacity: 35,
-      registered: 30,
-      difficulty: "Beginner",
+        "Good software isn't just functional — it's usable. This workshop focuses on the principles of UI/UX design and how they translate into real, working interfaces.\n\nParticipants will learn how to structure layouts, apply visual hierarchy, and think from a user's perspective while designing interfaces. The session goes beyond theory by demonstrating how these designs are implemented using frontend technologies.\n\nThrough guided exercises, participants will take a simple design concept and convert it into a functional interface, understanding how usability, accessibility, and responsiveness play a role in real-world applications. The workshop also highlights how UI/UX improvements are a valuable and accessible entry point into open-source contributions.",
+      date: "2026-04-4",
+      time: "To Be Decided",
+      location: "To Be Decided",
+      instructor: ["Vishal Kumar", "Nikita Bhonsale"],
+      capacity: 60,
+      registered: 0,
       tags: ["UI/UX", "Figma", "Prototyping"],
-      image: "/design-workshop.jpg",
+      clubs: ["ACM"],
+      image: designtodev,
     },
     {
-      id: "git-real-1",
+      id: "eid_git-real-1",
       title: "Git Real: Version Control in Practice",
+      shortDescription:
+        "Learn how developers actually collaborate using Git and GitHub.\nTrack changes, work with branches, and contribute to real projects with confidence.",
       description:
-        "Learn Git & GitHub workflows (commits, branching, collaboration). Master the fundamentals of version control and collaborative development.",
-      date: "2024-04-15",
-      time: "10:00 AM - 12:00 PM",
-      location: "Virtual",
-      instructor: "Sarah Chen",
-      capacity: 50,
-      registered: 32,
-      difficulty: "Beginner",
+        "Modern software is never built alone — it's built collaboratively, and version control is at the center of it. This hands-on session introduces participants to real-world Git and GitHub workflows used across industry and open-source projects.\n\nParticipants will learn how to track changes, manage code history, work with branches, and collaborate effectively using pull requests. Instead of just learning commands, the session focuses on understanding how developers actually work in teams, resolve conflicts, and maintain clean project histories.\n\nBy the end of the session, participants will be comfortable navigating repositories, contributing to shared codebases, and using Git as a practical tool rather than just a concept.",
+      date: "2026-04-3",
+      time: "To Be Decided",
+      location: "To Be Decided",
+      instructor: ["Siddhart U", "ACMW m1", "ACMW m2"],
+      capacity: 60,
+      registered: 0,
       tags: ["Git", "GitHub", "Version Control"],
-      image: "/git-workshop.jpg",
+      clubs: ["ACMW", "ISTE"],
+      image: git_real,
     },
   ],
 };
