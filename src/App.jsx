@@ -7,7 +7,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 
 const Home = () => (
-  <main className="min-h-screen pt-24 pb-12 flex flex-col items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <main className="min-h-screen pb-12 flex flex-col items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <Hero />
   </main>
 );

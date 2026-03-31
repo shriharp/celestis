@@ -74,7 +74,7 @@ export default function Navbar() {
 
   return (
     <nav className="w-full bg-github-header border-b border-github-border text-github-textPrimary sticky top-0 z-50">
-      <div className="max-w-[1400px] mx-auto px-4 py-3 sm:px-6 flex items-center justify-between">
+      <div className="max-w-[1400px] mx-auto px-4 py-3 m:px-6 flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <Link
             to="/"
