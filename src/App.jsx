@@ -34,7 +34,7 @@ function App() {
             <Route path="/events" element={<MyEvents></MyEvents>} />
             <Route
               path="/profile"
-              element={<div className="pt-24 text-center">Profile Page</div>}
+              element={<MyEvents></MyEvents>}
             />
           </Routes>
         </div>
