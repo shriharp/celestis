@@ -3,6 +3,7 @@ import { ThemeProvider } from "./context/ThemeContext";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import DomainsList from "./components/DomainsList";
+import DomainEvents from "./components/DomainEvents";
 import Login from "./components/Login";
 import Register from "./components/Register";
 
@@ -23,6 +24,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/domains" element={<DomainsList />} />
+            <Route path="/domains/:domainId" element={<DomainEvents />} />
             <Route
               path="/events"
               element={<div className="pt-24 text-center">My Events</div>}

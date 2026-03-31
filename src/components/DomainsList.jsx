@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Book, GitCommit, GitBranch, Terminal } from "lucide-react";
 import { getDomainsWithWorkshops } from "../services/eventsService";
 
 export default function DomainsList() {
   const [domains, setDomains] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function loadData() {
@@ -45,7 +47,8 @@ export default function DomainsList() {
           {domains.map((domain) => (
             <div
               key={domain.id}
-              className="repo-card flex flex-col group hover:border-github-borderHover transition-all duration-300 transform hover:scale-[1.02]"
+              className="repo-card flex flex-col group hover:border-github-borderHover transition-all duration-300 transform hover:scale-[1.02] cursor-pointer"
+              onClick={() => navigate(`/domains/${domain.id}`)}
             >
               <div className="p-6 border-b border-github-border flex justify-between items-start">
                 <div className="flex-1">
