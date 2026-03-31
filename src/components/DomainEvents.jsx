@@ -18,7 +18,9 @@ export default function DomainEvents() {
     async function loadData() {
       try {
         // Get current user
-        const { data: { user: currentUser } } = await supabase.auth.getUser();
+        const {
+          data: { user: currentUser },
+        } = await supabase.auth.getUser();
         if (!currentUser) {
           navigate("/login");
           return;

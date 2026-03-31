@@ -12,6 +12,7 @@ import {
 import { useTheme } from "../context/ThemeContext";
 import { useState, useEffect } from "react";
 import { getCurrentUser, logoutUser } from "../services/authService";
+import { getDomains } from "../services/eventsService";
 import { supabase } from "../lib/supabase";
 
 export default function Navbar() {
@@ -23,9 +24,9 @@ export default function Navbar() {
   const [user, setUser] = useState(null);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [domainNames, setDomainNames] = useState({});
 
   useEffect(() => {
-    // 🔥 initial check
     const init = async () => {
       const res = await getCurrentUser();
 
@@ -40,7 +41,6 @@ export default function Navbar() {
 
     init();
 
-    // 🔥 LISTEN TO AUTH CHANGES (this is the fix)
     const { data: listener } = supabase.auth.onAuthStateChange(
       (event, session) => {
         console.log("Auth event:", event);
@@ -56,6 +56,21 @@ export default function Navbar() {
     return () => {
       listener.subscription.unsubscribe();
     };
+  }, []);
+
+  useEffect(() => {
+    const loadDomains = async () => {
+      const domains = await getDomains();
+
+      setDomainNames(
+        domains.reduce((acc, domain) => {
+          acc[domain.id] = domain.name;
+          return acc;
+        }, {}),
+      );
+    };
+
+    loadDomains();
   }, []);
 
   const handleLogout = async () => {
@@ -91,31 +106,47 @@ export default function Navbar() {
     domains: "Domains",
   };
 
-  const isUID = (segment) => /\d/.test(segment);
+  const formatSegment = (segment) =>
+    segment.replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
 
   const getBreadcrumbs = () => {
     const path = location.pathname.split("/").filter(Boolean);
 
+    if (path[0] === "domains") {
+      const crumbs = [
+        {
+          name: routeNames.domains,
+          path: "/domains",
+        },
+      ];
+
+      if (path[1]) {
+        crumbs.push({
+          name: domainNames[path[1]] || formatSegment(path[1]),
+          path: `/domains/${path[1]}`,
+        });
+      }
+
+      return crumbs;
+    }
+
     let currentPath = "";
 
-    return path
-      .filter((segment) => !segment.startsWith("eid_") && !segment.startsWith("events")) // 🔥 ignore only eid_
-      .map((segment) => {
-        currentPath += `/${segment}`;
+    return path.map((segment) => {
+      currentPath += `/${segment}`;
 
-        return {
-          name:
-            routeNames[segment] ||
-            segment.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
-          path: currentPath,
-        };
-      });
+      return {
+        name: routeNames[segment] || formatSegment(segment),
+        path: currentPath,
+      };
+    });
   };
+
   const breadcrumbs = getBreadcrumbs();
+
   return (
     <nav className="w-full bg-github-header border-b border-github-border text-github-textPrimary sticky top-0 z-50">
       <div className="max-w-[1400px] mx-auto px-4 py-3 sm:px-6 flex items-center justify-between">
-        {/* Left */}
         <div className="flex items-center space-x-4">
           <Link to="/" className="hover:text-github-blue">
             <Github className="w-8 h-8" />
@@ -129,7 +160,6 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Right */}
         <div className="flex items-center space-x-3 font-semibold">
           {!loading && !user ? (
             <div className="flex space-x-2">
@@ -182,18 +212,15 @@ export default function Navbar() {
             </div>
           )}
 
-          {/* Theme */}
           <button onClick={toggleTheme} className="btn-outline px-3 text-sm">
             {getThemeIcon()} {getThemeName()}
           </button>
         </div>
       </div>
 
-      {/* Bottom */}
       <div className="bg-github-canvas border-b border-github-border pt-4">
         <div className="max-w-[1400px] mx-auto px-4">
           <div className="flex items-center text-xl pb-4 flex-wrap">
-            {/* Static root */}
             <span
               onClick={() => navigate("/")}
               className="text-github-blue hover:underline cursor-pointer"
@@ -210,7 +237,6 @@ export default function Navbar() {
               Open-Source-Week
             </span>
 
-            {/* Dynamic breadcrumbs */}
             {breadcrumbs.map((crumb, index) => (
               <span key={crumb.path} className="flex items-center">
                 <span className="mx-2 text-github-textMuted">/</span>
@@ -220,7 +246,7 @@ export default function Navbar() {
                   className={`cursor-pointer hover:underline ${
                     index === breadcrumbs.length - 1
                       ? "text-github-blue font-semibold"
-                      : "text-github-textPrimary"
+                      : "text-github-blue"
                   }`}
                 >
                   {crumb.name}
