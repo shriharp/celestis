@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import {
   Github,
   Plus,
@@ -16,6 +16,7 @@ import { getCurrentUser, logoutUser } from "../services/authService";
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
+  const location = useLocation();
   const [showThemeMenu, setShowThemeMenu] = useState(false);
   const [user, setUser] = useState(null);
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -60,6 +61,17 @@ export default function Navbar() {
     }
   };
 
+  const getBreadcrumbText = () => {
+    switch (location.pathname) {
+      case "/domains":
+        return "Domains";
+      case "/events":
+        return "MyEvents";
+      default:
+        return null; // Don't show additional breadcrumb for home page
+    }
+  };
+
   return (
     <nav className="w-full bg-github-header border-b border-github-border text-github-textPrimary sticky top-0 z-50">
       <div className="max-w-[1400px] mx-auto px-4 py-3 sm:px-6 flex items-center justify-between">
@@ -76,14 +88,6 @@ export default function Navbar() {
                 Type / to search
               </span>
             </div>
-          </div>
-          <div className="hidden lg:flex space-x-4 text-sm font-semibold">
-            <Link to="/domains" className="nav-link">
-              Domains
-            </Link>
-            <Link to="/events" className="nav-link">
-              My Events
-            </Link>
           </div>
         </div>
 
@@ -232,6 +236,14 @@ export default function Navbar() {
             <span className="text-github-blue hover:underline cursor-pointer font-bold">
               Open-Source-Week
             </span>
+            {getBreadcrumbText() && (
+              <>
+                <span className="mx-2 text-github-textMuted font-light">/</span>
+                <span className="text-github-blue hover:underline cursor-pointer font-semibold">
+                  {getBreadcrumbText()}
+                </span>
+              </>
+            )}
             <span className="ml-4 px-2 py-0.5 border border-github-border rounded-full text-xs text-github-textMuted font-medium flex items-center">
               Public
             </span>
