@@ -89,8 +89,6 @@ export default function Hero() {
         {/* 👇 attach ref here */}
         <div className="flex items-center space-x-2 mb-6 text-sm scroll-mt-32"  ref={headingRef} >
           <BookOpen className="w-4 h-4 text-github-textMuted" />
-          <span className="text-github-textMuted">Open Source Week</span>
-          <span className="text-github-textMuted">/</span>
           <span className="text-github-blue font-semibold">README.md</span>
         </div>
 
