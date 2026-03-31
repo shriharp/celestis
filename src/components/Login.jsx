@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Mail, Lock, Loader } from "lucide-react";
+import { Mail, Lock, Loader, User } from "lucide-react";
 import { loginUser } from "../services/authService";
+import { supabase } from "../lib/supabase";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -71,7 +72,7 @@ export default function Login() {
                 Username
               </label>
               <div className="relative">
-                {/* <Mail className="absolute left-3 top-3 w-4 h-4 text-github-textMuted" /> */}
+                <User className="absolute left-3 top-3 w-4 h-4 text-github-textMuted" />
                 <input
                   type="string"
                   name="registrationNumber"
