@@ -23,10 +23,9 @@ export const loginUser = async (email, password) => {
 // Register new user
 export const registerUser = async (formData) => {
   try {
-    const { name, email, registrationNumber, password, confirmPassword } =
+    const { name, email,learneremail, registrationNumber, password, confirmPassword } =
       formData;
 
-    // Frontend validation (backend team can add server-side validation)
     if (password !== confirmPassword) {
       return { success: false, error: "Passwords do not match" };
     }
@@ -42,11 +41,12 @@ export const registerUser = async (formData) => {
     // Optional: Store additional user data in a users table
     // Backend team can customize this table structure
     if (authData.user) {
-      const { error: insertError } = await supabase.from("users").insert([
+      const { error: insertError } = await supabase.from("profiles").insert([
         {
           id: authData.user.id,
           name,
           email,
+          learneremail,
           registration_number: registrationNumber,
           created_at: new Date(),
         },
