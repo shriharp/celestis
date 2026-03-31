@@ -51,7 +51,6 @@ export async function getEventById(domainId, eventId) {
           image:
             "https://api.dicebear.com/7.x/avataaars/svg?seed=" +
             event.instructor,
-          bio: `${event.instructor} is an experienced instructor with expertise in ${event.tags[0]}.`,
         },
         {
           id: "speaker-2",
@@ -60,16 +59,14 @@ export async function getEventById(domainId, eventId) {
           image:
             "https://api.dicebear.com/7.x/avataaars/svg?seed=" +
             event.instructor,
-          bio: `${event.instructor} is an experienced instructor with expertise in ${event.tags[0]}.`,
         },
         {
-          id: "speaker-2",
+          id: "speaker-3",
           name: event.instructor,
           role: "Workshop Instructor",
           image:
             "https://api.dicebear.com/7.x/avataaars/svg?seed=" +
             event.instructor,
-          bio: `${event.instructor} is an experienced instructor with expertise in ${event.tags[0]}.`,
         },
       ],
 
@@ -78,13 +75,11 @@ export async function getEventById(domainId, eventId) {
           id: "club-1",
           name: "Open Source Club",
           image: "https://api.dicebear.com/7.x/avataaars/svg?seed=club1",
-          members: 150,
         },
         {
           id: "club-2",
           name: "Code Masters",
           image: "https://api.dicebear.com/7.x/avataaars/svg?seed=club2",
-          members: 89,
         },
       ],
 
