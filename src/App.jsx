@@ -7,6 +7,7 @@ import DomainEvents from "./components/DomainEvents";
 import EventDescription from "./components/EventDescription";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import MyEvents from "./components/MyEvents";
 
 const Home = () => (
   <main className="min-h-screen pb-12 flex flex-col items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -30,10 +31,7 @@ function App() {
               path="/domains/:domainId/events/:eventId"
               element={<EventDescription />}
             />
-            <Route
-              path="/events"
-              element={<div className="pt-24 text-center">My Events</div>}
-            />
+            <Route path="/events" element={<MyEvents></MyEvents>} />
             <Route
               path="/profile"
               element={<div className="pt-24 text-center">Profile Page</div>}
