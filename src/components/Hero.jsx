@@ -12,7 +12,54 @@ export default function Hero() {
   const navigate = useNavigate();
   return (
     <div className="w-full bg-github-bg">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-8 md:py-12">
+      <div className="max-w-[1400px] mx-auto px-4 pt-5">
+        {/* GitHub-style repo header */}
+        <div className="flex items-center justify-between mb-6 pb-4 border-b border-github-border">
+          <div className="flex items-center space-x-3">
+            <img
+              src="https://avatars.githubusercontent.com/u/1?v=4"
+              alt="avatar"
+              className="w-8 h-8 rounded-full"
+            />
+            <div className="flex items-center space-x-2 text-sm">
+              <span className="text-github-textPrimary font-semibold">
+                MOSS
+              </span>
+              <span className="text-github-textMuted">
+                Feat: Create Tech Week
+              </span>
+            </div>
+          </div>
+
+          <div className="flex items-center space-x-4 text-sm text-github-textMuted">
+            <span>April 3rd</span>
+            <span className="flex items-center space-x-1">
+              <span className="font-semibold text-github-textPrimary">6</span>
+              <span>Workshops</span>
+            </span>
+          </div>
+        </div>
+        {/* GitHub-style file explorer */}
+        <div className="border border-github-border rounded-md overflow-hidden mb-8">
+          {/* File row */}
+          <div className="flex items-center justify-between px-4 py-2 bg-github-bg hover:bg-github-border transition-colors border-t border-github-border">
+            <div className="flex items-center space-x-3 text-sm">
+              <svg
+                className="w-4 h-4 text-github-textMuted"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+              >
+                <path d="M4 0h5l5 5v9.25A1.75 1.75 0 0 1 12.25 16h-8.5A1.75 1.75 0 0 1 2 14.25v-12.5A1.75 1.75 0 0 1 3.75 0H4z" />
+              </svg>
+              <span className="text-github-blue font-semibold cursor-pointer">
+                README.md
+              </span>
+            </div>
+            <span className="text-xs text-github-textMuted">
+              added 7 days of workshops
+            </span>
+          </div>
+        </div>
         {/* Breadcrumb */}
         <div className="flex items-center space-x-2 mb-6 text-sm">
           <BookOpen className="w-4 h-4 text-github-textMuted" />
