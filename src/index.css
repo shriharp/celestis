@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+
+html {
+  scroll-behavior: smooth;
+}
+
+
 /* GitHub Light Theme */
 .github-light {
   --color-bg: #ffffff;
