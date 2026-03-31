@@ -1,6 +1,6 @@
 // Domain events data
 export const DOMAIN_EVENTS = {
-  zhuque: [
+  eid_zhuque: [
     {
       id: "web-foundations-1",
       title: "Web Foundations: Build Your First Site",
@@ -32,7 +32,7 @@ export const DOMAIN_EVENTS = {
       image: "/fullstack.jpg",
     },
   ],
-  qinglong: [
+  eid_qinglong: [
     {
       id: "ml-lab-1",
       title: "ML Lab: Build Your First End-to-End Model",
@@ -49,7 +49,7 @@ export const DOMAIN_EVENTS = {
       image: "/ml-workshop.jpg",
     },
   ],
-  baihu: [
+  eid_baihu: [
     {
       id: "circuits-1",
       title: "Open Circuits: Exploring Open-Source Hardware",
@@ -66,7 +66,7 @@ export const DOMAIN_EVENTS = {
       image: "/electronics.jpg",
     },
   ],
-  xuanwu: [
+  eid_xuanwu: [
     {
       id: "design-dev-1",
       title: "Design to Dev: UI/UX for Real Projects",

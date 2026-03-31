@@ -86,17 +86,32 @@ export default function Navbar() {
     }
   };
 
-  const getBreadcrumbText = () => {
-    switch (location.pathname) {
-      case "/domains":
-        return "Domains";
-      case "/events":
-        return "MyEvents";
-      default:
-        return null;
-    }
+  const routeNames = {
+    events: "My Events",
+    domains: "Domains",
   };
 
+  const isUID = (segment) => /\d/.test(segment);
+
+  const getBreadcrumbs = () => {
+    const path = location.pathname.split("/").filter(Boolean);
+
+    let currentPath = "";
+
+    return path
+      .filter((segment) => !segment.startsWith("eid_") && !segment.startsWith("events")) // 🔥 ignore only eid_
+      .map((segment) => {
+        currentPath += `/${segment}`;
+
+        return {
+          name:
+            routeNames[segment] ||
+            segment.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+          path: currentPath,
+        };
+      });
+  };
+  const breadcrumbs = getBreadcrumbs();
   return (
     <nav className="w-full bg-github-header border-b border-github-border text-github-textPrimary sticky top-0 z-50">
       <div className="max-w-[1400px] mx-auto px-4 py-3 sm:px-6 flex items-center justify-between">
@@ -177,22 +192,41 @@ export default function Navbar() {
       {/* Bottom */}
       <div className="bg-github-canvas border-b border-github-border pt-4">
         <div className="max-w-[1400px] mx-auto px-4">
-          <div className="flex items-center text-xl pb-4">
-            <span className="text-github-blue hover:underline cursor-pointer">
+          <div className="flex items-center text-xl pb-4 flex-wrap">
+            {/* Static root */}
+            <span
+              onClick={() => navigate("/")}
+              className="text-github-blue hover:underline cursor-pointer"
+            >
               Celestis
             </span>
-            <span className="mx-2 text-github-textMuted font-light">/</span>
-            <span className="text-github-blue hover:underline cursor-pointer font-bold">
+
+            <span className="mx-2 text-github-textMuted">/</span>
+
+            <span
+              onClick={() => navigate("/")}
+              className="text-github-blue hover:underline cursor-pointer font-bold"
+            >
               Open-Source-Week
             </span>
-            {getBreadcrumbText() && (
-              <>
-                <span className="mx-2">/</span>
-                <span className="font-semibold text-github-blue">
-                  {getBreadcrumbText()}
+
+            {/* Dynamic breadcrumbs */}
+            {breadcrumbs.map((crumb, index) => (
+              <span key={crumb.path} className="flex items-center">
+                <span className="mx-2 text-github-textMuted">/</span>
+
+                <span
+                  onClick={() => navigate(crumb.path)}
+                  className={`cursor-pointer hover:underline ${
+                    index === breadcrumbs.length - 1
+                      ? "text-github-blue font-semibold"
+                      : "text-github-textPrimary"
+                  }`}
+                >
+                  {crumb.name}
                 </span>
-              </>
-            )}
+              </span>
+            ))}
           </div>
         </div>
       </div>
