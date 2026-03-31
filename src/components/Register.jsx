@@ -74,7 +74,7 @@ export default function Register() {
         confirmPassword: "",
       });
 
-      navigate("/login", {
+      navigate("/domains", {
         state: {
           message:
             "Registration successful! Please check your email to verify your account.",
