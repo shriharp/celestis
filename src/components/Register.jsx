@@ -7,11 +7,12 @@ export default function Register() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    learneremail: "",
     registrationNumber: "",
-    collegeName: "",
     password: "",
     confirmPassword: "",
   });
@@ -30,15 +31,21 @@ export default function Register() {
     setLoading(true);
     setError("");
 
-    // Client-side validation
+    // ✅ Validation
     if (
       !formData.name ||
       !formData.email ||
+      !formData.learneremail ||
       !formData.registrationNumber ||
-      !formData.collegeName ||
       !formData.password
     ) {
       setError("Please fill in all fields");
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.learneremail.endsWith("@learner.manipal.edu")) {
+      setError("Use your learner email");
       setLoading(false);
       return;
     }
@@ -58,15 +65,15 @@ export default function Register() {
     const result = await registerUser(formData);
 
     if (result.success) {
-      // Redirect to login or home based on your flow
       setFormData({
         name: "",
         email: "",
+        learneremail: "",
         registrationNumber: "",
-        collegeName: "",
         password: "",
         confirmPassword: "",
       });
+
       navigate("/login", {
         state: {
           message:
@@ -99,9 +106,9 @@ export default function Register() {
           style={{ backgroundColor: "var(--color-canvas)" }}
         >
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Name Field */}
+            {/* Name */}
             <div>
-              <label className="block text-sm font-semibold text-github-textPrimary mb-2">
+              <label className="block text-sm font-semibold mb-2">
                 Full Name
               </label>
               <div className="relative">
@@ -111,17 +118,16 @@ export default function Register() {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder=""
-                  className="w-full pl-10 pr-4 py-2 rounded-md text-github-textPrimary bg-github-bg border border-github-border focus:border-github-blue focus:outline-none transition-colors text-sm"
+                  className="w-full pl-10 pr-4 py-2 rounded-md bg-github-bg border border-github-border focus:border-github-blue outline-none text-sm"
                   disabled={loading}
                 />
               </div>
             </div>
 
-            {/*Personal Email Field */}
+            {/* Personal Email */}
             <div>
-              <label className="block text-sm font-semibold text-github-textPrimary mb-2">
-                Personal Email Id
+              <label className="block text-sm font-semibold mb-2">
+                Personal Email
               </label>
               <div className="relative">
                 <Mail className="absolute left-3 top-3 w-4 h-4 text-github-textMuted" />
@@ -130,17 +136,16 @@ export default function Register() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder=""
-                  className="w-full pl-10 pr-4 py-2 rounded-md text-github-textPrimary bg-github-bg border border-github-border focus:border-github-blue focus:outline-none transition-colors text-sm"
+                  className="w-full pl-10 pr-4 py-2 rounded-md bg-github-bg border border-github-border focus:border-github-blue outline-none text-sm"
                   disabled={loading}
                 />
               </div>
             </div>
 
-            {/* LearnerEmail Field */}
+            {/* Learner Email */}
             <div>
-              <label className="block text-sm font-semibold text-github-textPrimary mb-2">
-                Learner Email Id
+              <label className="block text-sm font-semibold mb-2">
+                Learner Email
               </label>
               <div className="relative">
                 <Mail className="absolute left-3 top-3 w-4 h-4 text-github-textMuted" />
@@ -149,16 +154,16 @@ export default function Register() {
                   name="learneremail"
                   value={formData.learneremail}
                   onChange={handleChange}
-                  placeholder="xyz.mitmpl20XX@learner.manipal.edu"
-                  className="w-full pl-10 pr-4 py-2 rounded-md text-github-textPrimary bg-github-bg border border-github-border focus:border-github-blue focus:outline-none transition-colors text-sm"
+                  placeholder="xyz@learner.manipal.edu"
+                  className="w-full pl-10 pr-4 py-2 rounded-md bg-github-bg border border-github-border focus:border-github-blue outline-none text-sm"
                   disabled={loading}
                 />
               </div>
             </div>
 
-            {/* Registration Number Field */}
+            {/* Registration Number */}
             <div>
-              <label className="block text-sm font-semibold text-github-textPrimary mb-2">
+              <label className="block text-sm font-semibold mb-2">
                 Registration Number
               </label>
               <input
@@ -166,15 +171,15 @@ export default function Register() {
                 name="registrationNumber"
                 value={formData.registrationNumber}
                 onChange={handleChange}
-                placeholder="2XXXXXXXXXXX"
-                className="w-full px-4 py-2 rounded-md text-github-textPrimary bg-github-bg border border-github-border focus:border-github-blue focus:outline-none transition-colors text-sm"
+                placeholder="2XXXXXXXX"
+                className="w-full px-4 py-2 rounded-md bg-github-bg border border-github-border focus:border-github-blue outline-none text-sm"
                 disabled={loading}
               />
             </div>
 
-            {/* Password Field */}
+            {/* Password */}
             <div>
-              <label className="block text-sm font-semibold text-github-textPrimary mb-2">
+              <label className="block text-sm font-semibold mb-2">
                 Password
               </label>
               <div className="relative">
@@ -184,16 +189,15 @@ export default function Register() {
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  placeholder=""
-                  className="w-full pl-10 pr-4 py-2 rounded-md text-github-textPrimary bg-github-bg border border-github-border focus:border-github-blue focus:outline-none transition-colors text-sm"
+                  className="w-full pl-10 pr-4 py-2 rounded-md bg-github-bg border border-github-border focus:border-github-blue outline-none text-sm"
                   disabled={loading}
                 />
               </div>
             </div>
 
-            {/* Confirm Password Field */}
+            {/* Confirm Password */}
             <div>
-              <label className="block text-sm font-semibold text-github-textPrimary mb-2">
+              <label className="block text-sm font-semibold mb-2">
                 Confirm Password
               </label>
               <div className="relative">
@@ -203,25 +207,24 @@ export default function Register() {
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  placeholder=""
-                  className="w-full pl-10 pr-4 py-2 rounded-md text-github-textPrimary bg-github-bg border border-github-border focus:border-github-blue focus:outline-none transition-colors text-sm"
+                  className="w-full pl-10 pr-4 py-2 rounded-md bg-github-bg border border-github-border focus:border-github-blue outline-none text-sm"
                   disabled={loading}
                 />
               </div>
             </div>
 
-            {/* Error Message */}
+            {/* Error */}
             {error && (
               <div className="p-3 rounded-md bg-red-100 border border-red-400 text-red-800 text-sm">
                 {error}
               </div>
             )}
 
-            {/* Submit Button */}
+            {/* Submit */}
             <button
               type="submit"
               disabled={loading}
-              className="w-full btn-primary py-2 flex items-center justify-center font-semibold disabled:opacity-50 disabled:cursor-not-allowed mt-6"
+              className="w-full btn-primary py-2 flex items-center justify-center font-semibold mt-6 disabled:opacity-50"
             >
               {loading ? (
                 <>
@@ -235,13 +238,13 @@ export default function Register() {
           </form>
         </div>
 
-        {/* Login Link */}
+        {/* Login */}
         <div className="text-center">
           <p className="text-github-textMuted text-sm">
             Already have an account?{" "}
             <Link
               to="/login"
-              className="text-github-blue font-semibold hover:underline transition-colors"
+              className="text-github-blue font-semibold hover:underline"
             >
               Sign in here
             </Link>

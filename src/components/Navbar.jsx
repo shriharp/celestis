@@ -178,20 +178,13 @@ export default function Navbar() {
       <div className="bg-github-canvas border-b border-github-border pt-4">
         <div className="max-w-[1400px] mx-auto px-4">
           <div className="flex items-center text-xl pb-4">
-            <Link
-              to="/"
-              className="text-github-blue hover:underline cursor-pointer"
-            >
+            <span className="text-github-blue hover:underline cursor-pointer">
               Celestis
-            </Link>
-            <span className="mx-2">/</span>
-            <Link
-              to="/"
-              className="font-bold text-github-blue hover:underline cursor-pointer"
-            >
+            </span>
+            <span className="mx-2 text-github-textMuted font-light">/</span>
+            <span className="text-github-blue hover:underline cursor-pointer font-bold">
               Open-Source-Week
-            </Link>
-
+            </span>
             {getBreadcrumbText() && (
               <>
                 <span className="mx-2">/</span>
