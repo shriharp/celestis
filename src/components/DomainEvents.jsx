@@ -77,16 +77,10 @@ export default function DomainEvents() {
             Back to Domains
           </button>
 
-          <div className="flex items-center mb-4">
+          <div className="flex items-center mb-2">
             <h1 className="text-3xl font-bold text-github-textPrimary mr-4">
               {domain.name}
             </h1>
-            <div className="flex items-center text-sm text-github-textMuted">
-              <span
-                className={`w-3 h-3 rounded-full bg-${domain.color} mr-2`}
-              />
-              {domain.symbol}
-            </div>
           </div>
 
           <p className="text-github-textMuted">
@@ -119,7 +113,7 @@ export default function DomainEvents() {
                 </h3>
 
                 <p className="text-github-textMuted text-sm mb-4 line-clamp-3">
-                  {event.description}
+                  {event.shortDescription || event.description}
                 </p>
 
                 {/* Event Details */}
@@ -137,11 +131,6 @@ export default function DomainEvents() {
                   <div className="flex items-center text-sm text-github-textMuted">
                     <MapPin className="w-4 h-4 mr-2" />
                     {event.location}
-                  </div>
-
-                  <div className="flex items-center text-sm text-github-textMuted">
-                    <User className="w-4 h-4 mr-2" />
-                    {event.instructor}
                   </div>
 
                   <div className="flex items-center text-sm text-github-textMuted">

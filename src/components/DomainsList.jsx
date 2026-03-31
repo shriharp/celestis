@@ -57,15 +57,6 @@ export default function DomainsList() {
                       {domain.name}
                     </span>
                   </h3>
-                  <p
-                    className="text-sm mt-3 flex items-center gap-2 font-semibold"
-                    style={{ color: "var(--color-blue)" }}
-                  >
-                    <span
-                      className={`w-3 h-3 rounded-full bg-${domain.color}`}
-                    />
-                    {domain.symbol}
-                  </p>
                 </div>
                 <div
                   className="px-3 py-1 rounded-full text-xs font-semibold"
@@ -82,7 +73,7 @@ export default function DomainsList() {
                 <div className="w-full h-40 overflow-hidden border-b border-github-border relative bg-github-canvas group-hover:opacity-90 transition-opacity duration-300">
                   <img
                     src={domain.image}
-                    alt={domain.symbol}
+                    alt={domain.name}
                     className="w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-all duration-300"
                     style={{ objectPosition: domain.imagePosition || "center" }}
                   />
