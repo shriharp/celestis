@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Mail, Lock, Loader, User } from "lucide-react";
+import { Lock, Loader, User } from "lucide-react";
 import { loginUser } from "../services/authService";
 import { supabase } from "../lib/supabase";
 
@@ -8,8 +8,9 @@ export default function Login() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
   const [formData, setFormData] = useState({
-    email: "",
+    registrationNumber: "",
     password: "",
   });
 
@@ -19,7 +20,7 @@ export default function Login() {
       ...prev,
       [name]: value,
     }));
-    setError(""); // Clear error on input change
+    setError("");
   };
 
   const handleSubmit = async (e) => {
@@ -27,21 +28,38 @@ export default function Login() {
     setLoading(true);
     setError("");
 
-    // Client-side validation
-    if (!formData.email || !formData.password) {
+    // Validation
+    if (!formData.registrationNumber || !formData.password) {
       setError("Please fill in all fields");
       setLoading(false);
       return;
     }
 
-    const result = await loginUser(formData.email, formData.password);
+    try {
+      // 🔍 1. Lookup email from registration number
+      const { data, error: lookupError } = await supabase
+        .from("profiles")
+        .select("email")
+        .eq("registration_number", formData.registrationNumber)
+        .single();
 
-    if (result.success) {
-      // Clear form and redirect
-      setFormData({ email: "", password: "" });
-      navigate("/");
-    } else {
-      setError(result.error || "Login failed. Please try again.");
+      if (lookupError || !data) {
+        setError("User not found");
+        setLoading(false);
+        return;
+      }
+
+      // 🔐 2. Login using email + password
+      const result = await loginUser(data.email, formData.password);
+
+      if (result.success) {
+        setFormData({ registrationNumber: "", password: "" });
+        navigate("/");
+      } else {
+        setError(result.error || "Invalid credentials");
+      }
+    } catch (err) {
+      setError("Something went wrong");
     }
 
     setLoading(false);
@@ -52,7 +70,7 @@ export default function Login() {
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold mb-2 text-github-textPrimary">
+          <h1 className="text-3xl font-bold mb-2">
             Welcome Back
           </h1>
           <p className="text-github-textMuted">
@@ -66,28 +84,27 @@ export default function Login() {
           style={{ backgroundColor: "var(--color-canvas)" }}
         >
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Email Field */}
+            {/* Registration Number */}
             <div>
-              <label className="block text-sm font-semibold text-github-textPrimary mb-2">
-                Username
+              <label className="block text-sm font-semibold mb-2">
+                Registration Number
               </label>
               <div className="relative">
                 <User className="absolute left-3 top-3 w-4 h-4 text-github-textMuted" />
                 <input
-                  type="string"
+                  type="text"
                   name="registrationNumber"
                   value={formData.registrationNumber}
                   onChange={handleChange}
-                  placeholder=""
-                  className="w-full pl-10 pr-4 py-2.5 rounded-md text-github-textPrimary bg-github-bg border border-github-border focus:border-github-blue focus:outline-none transition-colors"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-md bg-github-bg border border-github-border focus:border-github-blue focus:outline-none"
                   disabled={loading}
                 />
               </div>
             </div>
 
-            {/* Password Field */}
+            {/* Password */}
             <div>
-              <label className="block text-sm font-semibold text-github-textPrimary mb-2">
+              <label className="block text-sm font-semibold mb-2">
                 Password
               </label>
               <div className="relative">
@@ -97,25 +114,24 @@ export default function Login() {
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  placeholder=""
-                  className="w-full pl-10 pr-4 py-2.5 rounded-md text-github-textPrimary bg-github-bg border border-github-border focus:border-github-blue focus:outline-none transition-colors"
+                  className="w-full pl-10 pr-4 py-2.5 rounded-md bg-github-bg border border-github-border focus:border-github-blue focus:outline-none"
                   disabled={loading}
                 />
               </div>
             </div>
 
-            {/* Error Message */}
+            {/* Error */}
             {error && (
               <div className="p-3 rounded-md bg-red-100 border border-red-400 text-red-800 text-sm">
                 {error}
               </div>
             )}
 
-            {/* Submit Button */}
+            {/* Submit */}
             <button
               type="submit"
               disabled={loading}
-              className="w-full btn-primary py-2.5 flex items-center justify-center font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full btn-primary py-2.5 flex items-center justify-center font-semibold disabled:opacity-50"
             >
               {loading ? (
                 <>
@@ -128,24 +144,24 @@ export default function Login() {
             </button>
           </form>
 
-          {/* Forgot Password Link */}
+          {/* Forgot Password */}
           <div className="mt-4 text-center">
             <Link
               to="/forgot-password"
-              className="text-sm text-github-blue hover:underline transition-colors"
+              className="text-sm text-github-blue hover:underline"
             >
               Forgot your password?
             </Link>
           </div>
         </div>
 
-        {/* Register Link */}
+        {/* Register */}
         <div className="text-center">
           <p className="text-github-textMuted text-sm">
             Don't have an account?{" "}
             <Link
               to="/register"
-              className="text-github-blue font-semibold hover:underline transition-colors"
+              className="text-github-blue font-semibold hover:underline"
             >
               Create one now
             </Link>

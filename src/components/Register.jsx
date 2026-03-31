@@ -11,9 +11,9 @@ export default function Register() {
     name: "",
     email: "",
     registrationNumber: "",
-    collegeName: "",
     password: "",
     confirmPassword: "",
+    learneremail: "",
   });
 
   const handleChange = (e) => {
@@ -34,8 +34,8 @@ export default function Register() {
     if (
       !formData.name ||
       !formData.email ||
+      !formData.learneremail ||
       !formData.registrationNumber ||
-      !formData.collegeName ||
       !formData.password
     ) {
       setError("Please fill in all fields");
@@ -62,8 +62,8 @@ export default function Register() {
       setFormData({
         name: "",
         email: "",
+        learneremail: "",
         registrationNumber: "",
-        collegeName: "",
         password: "",
         confirmPassword: "",
       });
