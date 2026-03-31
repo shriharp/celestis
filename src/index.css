@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* GitHub Light Theme */
+.github-light {
+  --color-bg: #ffffff;
+  --color-canvas: #f6f8fa;
+  --color-border: #d0d7de;
+  --color-border-hover: #959da5;
+  --color-text-muted: #656d76;
+  --color-text-primary: #24292f;
+  --color-header: #f6f8fa;
+  --color-blue: #0969da;
+  --color-blue-hover: #033d8b;
+  --color-green: #1a7f0e;
+  --color-input: #eaeef2;
+}
+
+/* GitHub Dark Theme */
+.github-dark {
+  --color-bg: #0d1117;
+  --color-canvas: #161b22;
+  --color-border: #30363d;
+  --color-border-hover: #8b949e;
+  --color-text-muted: #8b949e;
+  --color-text-primary: #c9d1d9;
+  --color-header: #010409;
+  --color-blue: #58a6ff;
+  --color-blue-hover: #79c0ff;
+  --color-green: #238636;
+  --color-input: #21262d;
+}
+
+/* Celestis Theme - Cosmic Blue */
+.celestis {
+  --color-bg: #0a0e27;
+  --color-canvas: #101429;
+  --color-border: #1f2d4d;
+  --color-border-hover: #4a7c9e;
+  --color-text-muted: #6b9ec6;
+  --color-text-primary: #e0e7ff;
+  --color-header: #050810;
+  --color-blue: #60a5fa;
+  --color-blue-hover: #93c5fd;
+  --color-green: #10b981;
+  --color-input: #1a2851;
+}
+
+@layer base {
+  body {
+    @apply font-sans antialiased transition-colors duration-200;
+    background-color: var(--color-bg);
+    color: var(--color-text-primary);
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-4 py-1.5 text-sm font-semibold text-white rounded-md transition-colors duration-200 shadow-[0_1px_0_rgba(27,31,36,0.1)];
+    background-color: var(--color-green);
+    border: 1px solid rgba(240, 246, 252, 0.1);
+  }
+  
+  .btn-primary:hover {
+    filter: brightness(1.15);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  }
+  
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-4 py-1.5 text-sm font-medium rounded-md transition-colors duration-200;
+    background-color: var(--color-canvas);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+  }
+  
+  .btn-secondary:hover {
+    background-color: var(--color-border);
+    border-color: var(--color-border-hover);
+    transform: translateY(-1px);
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center px-3 py-1 text-xs font-semibold rounded-md transition-colors duration-200;
+    color: var(--color-text-muted);
+    background-color: transparent;
+    border: 1px solid var(--color-border);
+  }
+  
+  .btn-outline:hover {
+    color: var(--color-text-primary);
+    border-color: var(--color-border-hover);
+  }
+  
+  .repo-card {
+    @apply rounded-md transition-all duration-200;
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-border);
+  }
+  
+  .nav-link {
+    @apply transition-colors duration-200;
+    color: var(--color-text-primary);
+  }
+  
+  .nav-link:hover {
+    color: var(--color-blue);
+  }
+}
+
+/* Custom Scrollbar for a more GitHub-like feel */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 5px;
+  border: 2px solid var(--color-bg);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-hover);
+}
