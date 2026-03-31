@@ -15,13 +15,13 @@ export default function Hero() {
       <div className="max-w-[1400px] mx-auto px-4 pt-5">
         {/* GitHub-style repo header */}
         <div className="flex items-center justify-between mb-6 pb-4 border-b border-github-border">
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center">
             <img
-              src="https://avatars.githubusercontent.com/u/1?v=4"
+              src="../assets/moss_transparent.png"
               alt="avatar"
-              className="w-8 h-8 rounded-full"
+              className="w-9 h-8 rounded-full"
             />
-            <div className="flex items-center space-x-2 text-sm">
+            <div className="flex items-center space-x-2 text-sm ml-1">
               <span className="text-github-textPrimary font-semibold">
                 MOSS
               </span>
