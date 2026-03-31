@@ -39,14 +39,6 @@ export default function ClubsSection({ clubs = [] }) {
                 </div>
               </div>
 
-              {/* Member Count */}
-              {club.members !== undefined && (
-                <div className="flex items-center text-xs text-github-textMuted mt-1">
-                  <Users className="w-3 h-3 mr-1" />
-                  {club.members} members
-                </div>
-              )}
-
               {/* Club Bio */}
               {club.bio && (
                 <p className="text-xs text-github-textMuted mt-2 line-clamp-2">

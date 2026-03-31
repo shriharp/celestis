@@ -42,13 +42,6 @@ export default function SpeakersSection({ speakers = [] }) {
                 </div>
               </div>
 
-              {/* Speaker Bio */}
-              {speaker.bio && (
-                <p className="text-xs text-github-textMuted mt-2 line-clamp-2">
-                  {speaker.bio}
-                </p>
-              )}
-
               {/* Speaker Links */}
               <div className="flex gap-2 mt-2">
                 {speaker.email && (
