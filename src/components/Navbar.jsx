@@ -15,7 +15,7 @@ import { getCurrentUser, logoutUser } from "../services/authService";
 import { getDomains } from "../services/eventsService";
 import { DOMAIN_EVENTS } from "../services/domainEvents";
 import { supabase } from "../lib/supabase";
-import mossGithubLogo from "../images/moss_github_1.png";
+const mossGithubLogo = "/images/moss_github_1.png";
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();

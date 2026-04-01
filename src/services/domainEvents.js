@@ -1,17 +1,17 @@
 // Domain events data
 
-import webfoundations from "../images/web_foundation.png";
-import stacklab from "../images/stack_lab.png";
-import mllab from "../images/ML_Labs.png";
-import insidellms from "../images/Inside_llm.png";
-import opencircuit from "../images/open_circuits.png";
-import designtodev from "../images/design_to_dev.png";
-import git_real from "../images/git_real.png";
-import IEnClogo from "../images/IEnC_club.png";
-import MOSSlogo from "../images/moss_github_transp.png";
-import ISTElogo from "../images/ISTE_club.png";
-import ACMlogo from "../images/acm_old.webp";
-import ACMWlogo from "../images/acmw_old.webp";
+const webfoundations = "/images/web_foundation.png";
+const stacklab = "/images/stack_lab.png";
+const mllab = "/images/ML_Labs.png";
+const insidellms = "/images/Inside_llm.png";
+const opencircuit = "/images/open_circuits.png";
+const designtodev = "/images/design_to_dev.png";
+const git_real = "/images/git_real.png";
+const IEnClogo = "/images/IEnC_club.png";
+const MOSSlogo = "/images/moss_github_transp.png";
+const ISTElogo = "/images/ISTE_club.png";
+const ACMlogo = "/images/acm_old.webp";
+const ACMWlogo = "/images/acmw_old.webp";
 
 // Clubs mapping - define all available clubs here
 export const CLUBS_MAP = {

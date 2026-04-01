@@ -1,10 +1,10 @@
 import { supabase } from "../lib/supabase";
 
 // Import images
-import webdevImage from "../images/webdevlopment.png";
-import aiMlImage from "../images/AI_ML theme.png";
-import systemsImage from "../images/System_electronics.png";
-import codingImage from "../images/coding.png";
+const webdevImage = "/images/webdevlopment.png";
+const aiMlImage = "/images/AI_ML theme.png";
+const systemsImage = "/images/System_electronics.png";
+const codingImage = "/images/coding.png";
 
 // Mock data to be used until Supabase backend is fully populated
 const MOCK_DOMAINS = [
