@@ -6,6 +6,8 @@ import DomainsList from "./components/DomainsList";
 import DomainEvents from "./components/DomainEvents";
 import EventDescription from "./components/EventDescription";
 import Login from "./components/Login";
+import ForgotPassword from "./components/ForgotPassword";
+import ResetPassword from "./components/ResetPassword";
 import Register from "./components/Register";
 import MyEvents from "./components/MyEvents";
 
@@ -25,6 +27,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/domains" element={<DomainsList />} />
             <Route path="/domains/:domainId" element={<DomainEvents />} />
             <Route
