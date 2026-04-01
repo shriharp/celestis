@@ -106,7 +106,9 @@ export default function DomainsList() {
                     Markdown
                   </div>
                   <div className="flex items-center">
-                    <GitBranch className="w-3.5 h-3.5 mr-1" /> 1 branch
+                    <GitBranch className="w-3.5 h-3.5 mr-1" />{" "}
+                    {domain.workshops?.length || 0}{" "}
+                    {domain.workshops?.length === 1 ? "branch" : "branches"}
                   </div>
                 </div>
                 <div>Updated 2 hours ago</div>
