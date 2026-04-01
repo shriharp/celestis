@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useRef, useEffect } from "react";
+import CelestistHeroBG from "../images/Hero_Image.png";
 
 export default function Hero() {
   const navigate = useNavigate();
@@ -87,55 +88,74 @@ export default function Hero() {
 
         {/* Breadcrumb */}
         {/* 👇 attach ref here */}
-        <div className="flex items-center space-x-2 mb-6 text-sm scroll-mt-32" ref={headingRef} >
+        <div
+          className="flex items-center space-x-2 mb-6 text-sm scroll-mt-32"
+          ref={headingRef}
+        >
           <BookOpen className="w-4 h-4 text-github-textMuted" />
           <span className="text-github-blue font-semibold">README.md</span>
         </div>
 
         {/* Main Content */}
-        <div className="mb-12">
-          <div className="flex items-center gap-3 mb-4">
-            <Sparkles className="w-6 h-6 text-github-green" />
-            <span className="text-github-green font-semibold text-sm tracking-wide">
-              CELESTIS - MOSS's official Open Source Week (3rd to 9th April)
-            </span>
+        <div className="mb-12 relative flex flex-col lg:flex-row items-center gap-10">
+          {/* LEFT: TEXT */}
+          <div className="flex-1 relative z-10">
+            <div className="flex items-center gap-3 mb-6">
+              <Sparkles className="w-6 h-6 text-github-green" />
+              <span className="text-github-green font-semibold text-sm tracking-wide">
+                CELESTIS - MOSS's official Open Source Week (3rd to 9th April)
+              </span>
+            </div>
+
+            <h1 className="cinzel text-5xl font-semibold md:text-6xl font-black tracking-tight mb-6 text-github-textPrimary leading-tight">
+              Welcome to Celestis
+            </h1>
+
+            <p className="text-lg md:text-xl text-github-textMuted mb-4 max-w-2xl leading-relaxed">
+              A week-long open-source event designed to provide participants
+              with hands-on experience across multiple technical domains,
+              through a{" "}
+              <span className="text-github-blue font-semibold">
+                mythology-inspired progression system
+              </span>
+              .
+            </p>
+
+            <p className="text-base text-github-textMuted max-w-2xl leading-relaxed mb-8">
+              Grow from beginners to skilled contributors
+              <br />
+              <span className="text-github-blue font-semibold">
+                Become the <span className="cinzel">Huanglong Warrior</span>
+              </span>{" "}
+              : Master of All Domains.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-3">
+              <button
+                onClick={() => navigate("/domains")}
+                className="btn-primary inline-flex items-center justify-center"
+              >
+                Explore Domains
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </button>
+              <button
+                onClick={() => navigate("/events")}
+                className="btn-secondary inline-flex items-center justify-center"
+              >
+                My Events
+              </button>
+            </div>
           </div>
 
-          <h1 className="text-5xl md:text-6xl font-black tracking-tight mb-6 text-github-textPrimary leading-tight">
-            Welcome to MOSS's Celestis
-          </h1>
-
-          <p className="text-lg md:text-xl text-github-textMuted mb-4 max-w-2xl leading-relaxed">
-            A week-long open-source event designed to provide participants with
-            hands-on experience across multiple technical domains, through a{" "}
-            <span className="text-github-blue font-semibold">
-              mythology-inspired progression system
-            </span>
-            .
-          </p>
-
-          <p className="text-base text-github-textMuted max-w-2xl leading-relaxed mb-8">
-            Grow from beginners to skilled contributors and become the{" "}
-            <span className="text-github-blue font-semibold">
-              Huanglong Warrior
-            </span>{" "}
-            : Master of All Domains.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-3">
-            <button
-              onClick={() => navigate("/domains")}
-              className="btn-primary inline-flex items-center justify-center"
-            >
-              Explore Domains
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </button>
-            <button
-              onClick={() => navigate("/events")}
-              className="btn-secondary inline-flex items-center justify-center"
-            >
-              My Events
-            </button>
+          {/* IMAGE (now positioned behind + starts mid) */}
+          <div className="hidden ml-[40%] w-[65%] lg:block absolute top-0 left-0 h-full pointer-events-none">
+            <img
+              src={CelestistHeroBG}
+              alt="Celestis Illustration"
+              className="w-full h-full object-none opacity-60 light:opacity-20"
+            />
+            {/* Blend into text */}
+            <div className="absolute inset-0 hero-gradient" />{" "}
           </div>
         </div>
 

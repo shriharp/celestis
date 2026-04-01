@@ -2,12 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
-
 html {
   scroll-behavior: smooth;
 }
 
+.hero-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    white,
+    rgba(255, 255, 255, 0.5),
+    transparent
+  );
+}
 
+/* Dark mode (when .dark is on html) */
+.dark .hero-gradient {
+  background: linear-gradient(
+    to right,
+    #0d1117,
+    rgba(13, 17, 23, 0.5),
+    transparent
+  );
+}
+
+.github-light .hero-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    white,
+    rgba(255, 255, 255, 0.5),
+    transparent
+  );
+}
+.cinzel {
+  font-family: "Cinzel", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
 /* GitHub Light Theme */
 .github-light {
   --color-bg: #ffffff;
@@ -59,7 +93,7 @@ html {
     background-color: var(--color-bg);
     color: var(--color-text-primary);
   }
-  
+
   html {
     scroll-behavior: smooth;
   }
@@ -71,20 +105,20 @@ html {
     background-color: var(--color-green);
     border: 1px solid rgba(240, 246, 252, 0.1);
   }
-  
+
   .btn-primary:hover {
     filter: brightness(1.15);
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
   }
-  
+
   .btn-secondary {
     @apply inline-flex items-center justify-center px-4 py-1.5 text-sm font-medium rounded-md transition-colors duration-200;
     background-color: var(--color-canvas);
     color: var(--color-text-primary);
     border: 1px solid var(--color-border);
   }
-  
+
   .btn-secondary:hover {
     background-color: var(--color-border);
     border-color: var(--color-border-hover);
@@ -97,23 +131,23 @@ html {
     background-color: transparent;
     border: 1px solid var(--color-border);
   }
-  
+
   .btn-outline:hover {
     color: var(--color-text-primary);
     border-color: var(--color-border-hover);
   }
-  
+
   .repo-card {
     @apply rounded-md transition-all duration-200;
     background-color: var(--color-bg);
     border: 1px solid var(--color-border);
   }
-  
+
   .nav-link {
     @apply transition-colors duration-200;
     color: var(--color-text-primary);
   }
-  
+
   .nav-link:hover {
     color: var(--color-blue);
   }
