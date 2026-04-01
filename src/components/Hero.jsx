@@ -87,7 +87,7 @@ export default function Hero() {
 
         {/* Breadcrumb */}
         {/* 👇 attach ref here */}
-        <div className="flex items-center space-x-2 mb-6 text-sm scroll-mt-32"  ref={headingRef} >
+        <div className="flex items-center space-x-2 mb-6 text-sm scroll-mt-32" ref={headingRef} >
           <BookOpen className="w-4 h-4 text-github-textMuted" />
           <span className="text-github-blue font-semibold">README.md</span>
         </div>
@@ -97,12 +97,12 @@ export default function Hero() {
           <div className="flex items-center gap-3 mb-4">
             <Sparkles className="w-6 h-6 text-github-green" />
             <span className="text-github-green font-semibold text-sm tracking-wide">
-              CELESTIS OPEN SOURCE EVENT
+              CELESTIS - MOSS's official Open Source Week (3rd to 9th April)
             </span>
           </div>
 
           <h1 className="text-5xl md:text-6xl font-black tracking-tight mb-6 text-github-textPrimary leading-tight">
-            The Huanglong Journey
+            Welcome to MOSS's Celestis
           </h1>
 
           <p className="text-lg md:text-xl text-github-textMuted mb-4 max-w-2xl leading-relaxed">
@@ -119,7 +119,7 @@ export default function Hero() {
             <span className="text-github-blue font-semibold">
               Huanglong Warrior
             </span>{" "}
-            — Master of All Domains.
+            : Master of All Domains.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3">
