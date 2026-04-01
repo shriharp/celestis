@@ -148,7 +148,7 @@ export default function Hero() {
           </div>
 
           {/* IMAGE (now positioned behind + starts mid) */}
-          <div className="hidden ml-[40%] w-[65%] lg:block absolute top-0 left-0 h-full pointer-events-none">
+          <div className="hidden ml-[35%] w-[65%] lg:block absolute top-0 left-0 h-full pointer-events-none">
             <img
               src={CelestistHeroBG}
               alt="Celestis Illustration"
