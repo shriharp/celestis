@@ -10,9 +10,10 @@ import {
   LogOut,
 } from "lucide-react";
 import { useTheme } from "../context/ThemeContext";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { getCurrentUser, logoutUser } from "../services/authService";
 import { getDomains } from "../services/eventsService";
+import { DOMAIN_EVENTS } from "../services/domainEvents";
 import { supabase } from "../lib/supabase";
 import mossGithubLogo from "../images/moss_github_1.png";
 
@@ -26,6 +27,10 @@ export default function Navbar() {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [loading, setLoading] = useState(true);
   const [domainNames, setDomainNames] = useState({});
+  const [searchQuery, setSearchQuery] = useState("");
+  const [showSearchResults, setShowSearchResults] = useState(false);
+  const searchInputRef = useRef(null);
+  const searchContainerRef = useRef(null);
 
   useEffect(() => {
     const init = async () => {
@@ -68,6 +73,99 @@ export default function Navbar() {
 
     loadDomains();
   }, []);
+
+  useEffect(() => {
+    const handleSlashShortcut = (event) => {
+      const target = event.target;
+      const isTypingTarget =
+        target instanceof HTMLElement &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.isContentEditable);
+
+      if (event.key === "/" && !isTypingTarget) {
+        event.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+
+    const handleOutsideClick = (event) => {
+      if (
+        searchContainerRef.current &&
+        !searchContainerRef.current.contains(event.target)
+      ) {
+        setShowSearchResults(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleSlashShortcut);
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      window.removeEventListener("keydown", handleSlashShortcut);
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
+
+  const searchResults = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+    if (!query) return [];
+
+    const domainMatches = Object.entries(domainNames)
+      .filter(([, name]) => name.toLowerCase().includes(query))
+      .map(([id, name]) => ({
+        id: `domain-${id}`,
+        type: "domain",
+        title: name,
+        subtitle: "Domain",
+        path: `/domains/${id}`,
+      }));
+
+    const eventMatches = Object.entries(DOMAIN_EVENTS).flatMap(
+      ([domainId, events]) =>
+        events
+          .filter((event) => {
+            const text = [
+              event.title,
+              event.shortDescription,
+              event.description,
+              ...(event.tags || []),
+            ]
+              .join(" ")
+              .toLowerCase();
+
+            return text.includes(query);
+          })
+          .map((event) => ({
+            id: `event-${domainId}-${event.id}`,
+            type: "event",
+            title: event.title,
+            subtitle: domainNames[domainId] || "Event",
+            path: `/domains/${domainId}/events/${event.id}`,
+          })),
+    );
+
+    return [...domainMatches, ...eventMatches].slice(0, 8);
+  }, [searchQuery, domainNames]);
+
+  const handleSearchNavigate = (path) => {
+    setShowSearchResults(false);
+    setSearchQuery("");
+    navigate(path);
+  };
+
+  const handleSearchKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      if (searchResults.length > 0) {
+        handleSearchNavigate(searchResults[0].path);
+      }
+    }
+    if (event.key === "Escape") {
+      setShowSearchResults(false);
+      searchInputRef.current?.blur();
+    }
+  };
 
   const handleLogout = async () => {
     await logoutUser();
@@ -155,10 +253,46 @@ export default function Navbar() {
             />
           </Link>
           <div className="hidden md:flex space-x-2">
-            <div className="flex bg-github-canvas border border-github-border rounded-md px-2 py-1 items-center min-w-[240px]">
-              <span className="text-github-textMuted text-xs font-mono ml-2">
-                Type / to search
-              </span>
+            <div className="relative" ref={searchContainerRef}>
+              <div className="flex bg-github-canvas border border-github-border rounded-md px-2 py-1 items-center min-w-[280px]">
+                <input
+                  ref={searchInputRef}
+                  value={searchQuery}
+                  onChange={(event) => {
+                    setSearchQuery(event.target.value);
+                    setShowSearchResults(true);
+                  }}
+                  onFocus={() => setShowSearchResults(true)}
+                  onKeyDown={handleSearchKeyDown}
+                  placeholder="Type / to search"
+                  className="bg-transparent text-sm text-github-textPrimary placeholder:text-github-textMuted outline-none w-full px-2"
+                />
+              </div>
+
+              {showSearchResults && searchQuery.trim().length > 0 && (
+                <div className="absolute left-0 top-full mt-2 w-full bg-github-canvas border border-github-border rounded-md shadow-lg overflow-hidden z-50">
+                  {searchResults.length > 0 ? (
+                    searchResults.map((result) => (
+                      <button
+                        key={result.id}
+                        onClick={() => handleSearchNavigate(result.path)}
+                        className="w-full text-left px-3 py-2 hover:bg-github-border transition-colors"
+                      >
+                        <div className="text-sm text-github-textPrimary">
+                          {result.title}
+                        </div>
+                        <div className="text-xs text-github-textMuted">
+                          {result.subtitle}
+                        </div>
+                      </button>
+                    ))
+                  ) : (
+                    <div className="px-3 py-2 text-sm text-github-textMuted">
+                      No results found
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>
