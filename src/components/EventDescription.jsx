@@ -158,7 +158,7 @@ export default function EventDescription() {
             {/* Hero */}
             {event.image && (
               <div className="border border-github-border rounded-lg overflow-hidden mb-6">
-                <img src={event.image} className="w-full h-80 object-cover" />
+                <img src={event.image} className="h-full object-cover object-center" />
               </div>
             )}
 
