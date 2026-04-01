@@ -89,7 +89,7 @@ export default function Hero() {
         {/* Breadcrumb */}
         {/* 👇 attach ref here */}
         <div
-          className="flex items-center space-x-2 mb-6 text-sm scroll-mt-32"
+          className="flex items-center space-x-2 mb-6 text-sm scroll-mt-36"
           ref={headingRef}
         >
           <BookOpen className="w-4 h-4 text-github-textMuted" />
