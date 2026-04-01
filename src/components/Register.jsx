@@ -76,8 +76,7 @@ export default function Register() {
 
       navigate("/domains", {
         state: {
-          message:
-            "Registration successful! Please check your email to verify your account.",
+          message: "Registration successful!",
         },
       });
     } else {

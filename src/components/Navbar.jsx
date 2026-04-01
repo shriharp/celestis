@@ -337,6 +337,16 @@ export default function Navbar() {
                   >
                     My Events
                   </Link>
+                  
+                  {user?.email === "admin@celestis.com" && (
+                    <Link
+                      to="/admin"
+                      onClick={() => setShowUserMenu(false)}
+                      className="block px-4 py-2 hover:bg-github-border text-github-green font-semibold"
+                    >
+                      Admin Dashboard
+                    </Link>
+                  )}
 
                   <button
                     onClick={handleLogout}

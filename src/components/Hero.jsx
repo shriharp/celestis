@@ -103,7 +103,7 @@ export default function Hero() {
             <div className="flex items-center gap-3 mb-6">
               <Sparkles className="w-6 h-6 text-github-green" />
               <span className="text-github-green font-semibold text-sm tracking-wide">
-                CELESTIS - MOSS's official Open Source Week (3rd to 9th April)
+                CELESTIS - MOSS's official Open Source Week (3rd to 7th April)
               </span>
             </div>
 

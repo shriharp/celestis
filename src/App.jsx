@@ -10,6 +10,7 @@ import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
 import Register from "./components/Register";
 import MyEvents from "./components/MyEvents";
+import AdminDashboard from "./components/AdminDashboard";
 
 const Home = () => (
   <main className="min-h-screen pb-12 flex flex-col items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -40,6 +41,7 @@ function App() {
               path="/profile"
               element={<MyEvents></MyEvents>}
             />
+            <Route path="/admin" element={<AdminDashboard />} />
           </Routes>
         </div>
       </Router>
