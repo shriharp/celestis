@@ -8,7 +8,6 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useRef, useEffect } from "react";
-import CelestistHeroBG from "../images/Hero_image.png";
 
 export default function Hero() {
   const navigate = useNavigate();
@@ -147,15 +146,9 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* IMAGE (now positioned behind + starts mid) */}
-          <div className="hidden ml-[35%] w-[65%] lg:block absolute top-0 left-0 h-full pointer-events-none">
-            <img
-              src={CelestistHeroBG}
-              alt="Celestis Illustration"
-              className="w-full h-full object-none opacity-60 light:opacity-20"
-            />
-            {/* Blend into text */}
-            <div className="absolute inset-0 hero-gradient" />{" "}
+          {/* Background Gradient (Removed Image) */}
+          <div className="hidden w-full lg:block absolute top-0 left-0 h-full pointer-events-none">
+            <div className="absolute inset-0 hero-gradient opacity-60" />
           </div>
         </div>
 
