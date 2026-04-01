@@ -140,6 +140,10 @@ export default function EventDescription() {
     return <div className="text-center pt-24">Event not found</div>;
   }
 
+  const instructorNames = Array.isArray(event.instructor)
+    ? event.instructor.join(", ")
+    : event.instructor;
+
   return (
     <div className="min-h-screen pt-4 pb-12 bg-github-bg text-github-textPrimary">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -169,7 +173,7 @@ export default function EventDescription() {
             <div className="flex flex-wrap items-center gap-4 text-sm text-github-textMuted border-b border-github-border pb-4 mb-6">
               <div className="flex items-center gap-2">
                 <User className="w-4 h-4" />
-                {event.instructor}
+                <span>{instructorNames}</span>
               </div>
 
               <div className="flex items-center gap-2">
