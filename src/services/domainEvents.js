@@ -10,8 +10,8 @@ import git_real from "../images/git_real.png";
 import IEnClogo from "../images/IEnC_club.png";
 import MOSSlogo from "../images/moss_github_transp.png";
 import ISTElogo from "../images/ISTE_club.png";
-import ACMlogo from "../images/ACM_logo.png";
-import ACMWlogo from "../images/ACMW_logo.png";
+import ACMlogo from "../images/acm_old.webp";
+import ACMWlogo from "../images/acmw_old.webp";
 
 // Clubs mapping - define all available clubs here
 export const CLUBS_MAP = {
@@ -180,8 +180,8 @@ export const DOMAIN_EVENTS = {
           id: "speaker-1",
           name: "Mrinal Dhami",
           role: "Workshop Instructor",
-          image: "https://github.com/sparrow7559.png",
-          githubUrl: "https://github.com/sparrow7559",
+          image: "https://github.com/SolomonAureus.png",
+          githubUrl: "https://github.com/SolomonAureus",
         },
         {
           id: "speaker-2",
@@ -229,15 +229,15 @@ export const DOMAIN_EVENTS = {
           id: "speaker-3",
           name: "Pratham",
           role: "Workshop Instructor",
-          image: "https://github.com/PrayatshuMisra.png",
-          githubUrl: "https://github.com/PrayatshuMisra",
+          image: "https://github.com/Pratham-G-R.png",
+          githubUrl: "https://github.com/Pratham-G-R",
         },
         {
           id: "speaker-4",
           name: "Saanvi Verma",
           role: "Workshop Instructor",
-          image: "https://github.com/PrayatshuMisra.png",
-          githubUrl: "https://github.com/PrayatshuMisra",
+          image: "https://github.com/saanviverma29.png",
+          githubUrl: "https://github.com/saanviverma29",
         },
       ],
       capacity: 60,
@@ -264,8 +264,8 @@ export const DOMAIN_EVENTS = {
           id: "speaker-1",
           name: "Vishal Kumar",
           role: "Workshop Instructor",
-          image: "https://github.com/sparrow7559.png",
-          githubUrl: "https://github.com/sparrow7559",
+          image: "https://github.com/Vishy-MK.png",
+          githubUrl: "https://github.com/Vishy-MK",
         },
         {
           id: "speaker-2",
@@ -291,28 +291,28 @@ export const DOMAIN_EVENTS = {
       date: "2026-04-3",
       time: "10:00 AM",
       location: "To Be Decided",
-      instructor: ["Siddhart U", "ACMW m1", "ACMW m2"],
+      instructor: ["Siddhart U", "Bhuvi Sanga", "Aadya Singh"],
       speakers: [
         {
           id: "speaker-1",
           name: "Siddhart U",
           role: "Workshop Instructor",
-          image: "https://github.com/sparrow7559.png",
-          githubUrl: "https://github.com/sparrow7559",
+          image: "https://github.com/mooofin.png",
+          githubUrl: "https://github.com/mooofin",
         },
         {
           id: "speaker-2",
-          name: "ACMW m1",
+          name: "Bhuvi Sanga",
           role: "Workshop Instructor",
-          image: "https://github.com/PrayatshuMisra.png",
-          githubUrl: "https://github.com/PrayatshuMisra",
+          image: "https://github.com/bhuvisanga.png",
+          githubUrl: "https://github.com/bhuvisanga",
         },
         {
           id: "speaker-3",
-          name: "ACMW m2",
+          name: "Aadya Singh",
           role: "Workshop Instructor",
-          image: "https://github.com/PrayatshuMisra.png",
-          githubUrl: "https://github.com/PrayatshuMisra",
+          image: "https://github.com/AadyaSingh123.png",
+          githubUrl: "https://github.com/AadyaSingh123",
         },
       ],
       capacity: 60,
