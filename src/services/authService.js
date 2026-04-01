@@ -23,39 +23,93 @@ export const loginUser = async (email, password) => {
 // Register new user
 export const registerUser = async (formData) => {
   try {
-    const { name, email,learneremail, registrationNumber, password, confirmPassword } =
-      formData;
+    const {
+      name,
+      email,
+      learneremail,
+      registrationNumber,
+      password,
+      confirmPassword,
+    } = formData;
 
     if (password !== confirmPassword) {
       return { success: false, error: "Passwords do not match" };
     }
 
-    // Create auth user in Supabase
-    const { data: authData, error: authError } = await supabase.auth.signUp({
-      email: email.toLowerCase().trim(),
-      password: password,
-    });
+    const cleanEmail = email.toLowerCase().trim();
+    const cleanLearnerEmail = learneremail.toLowerCase().trim();
+
+    // 🔍 1. Check for existing email
+    const { data: emailExists } = await supabase
+      .from("profiles")
+      .select("id")
+      .eq("email", cleanEmail)
+      .maybeSingle();
+
+    if (emailExists) {
+      return { success: false, error: "Email already registered" };
+    }
+
+    // 🔍 2. Check learner email
+    const { data: learnerExists } = await supabase
+      .from("profiles")
+      .select("id")
+      .eq("learneremail", cleanLearnerEmail)
+      .maybeSingle();
+
+    if (learnerExists) {
+      return { success: false, error: "Learner email already registered" };
+    }
+
+    // 🔍 3. Check registration number
+    const { data: regExists } = await supabase
+      .from("profiles")
+      .select("id")
+      .eq("registration_number", registrationNumber)
+      .maybeSingle();
+
+    if (regExists) {
+      return {
+        success: false,
+        error: "Registration number already exists",
+      };
+    }
+
+    // ✅ 4. Create auth user
+    const { data: authData, error: authError } =
+      await supabase.auth.signUp({
+        email: cleanEmail,
+        password,
+      });
 
     if (authError) throw authError;
 
-    // Optional: Store additional user data in a users table
-    // Backend team can customize this table structure
-    if (authData.user) {
-      const { error: insertError } = await supabase.from("profiles").insert([
-        {
-          id: authData.user.id,
-          name,
-          email,
-          learneremail,
-          registration_number: registrationNumber,
-          created_at: new Date(),
-        },
-      ]);
+    const user = authData.user;
 
-      if (insertError) console.warn("Could not insert user data:", insertError);
+    if (!user) {
+      return { success: false, error: "User creation failed" };
     }
 
-    return { success: true, user: authData.user };
+    // ✅ 5. Insert into profiles
+    const { error: insertError } = await supabase.from("profiles").insert([
+      {
+        id: user.id,
+        name,
+        email: cleanEmail,
+        learneremail: cleanLearnerEmail,
+        registration_number: registrationNumber,
+        created_at: new Date(),
+      },
+    ]);
+
+    if (insertError) {
+      return {
+        success: false,
+        error: "Could not save user profile",
+      };
+    }
+
+    return { success: true, user };
   } catch (error) {
     return { success: false, error: error.message };
   }

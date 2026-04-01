@@ -182,8 +182,9 @@ export default function Navbar() {
                 className="flex items-center space-x-2"
               >
                 <img
-                  src={`https://avatars.dicebear.com/api/avataaars/${user?.email}.svg`}
+                  src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(user?.email || "guest")}`}
                   className="w-8 h-8 rounded-full"
+                  alt="avatar"
                 />
                 <span className="hidden sm:inline text-sm">
                   {user?.email?.split("@")[0]}
