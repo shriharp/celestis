@@ -7,37 +7,42 @@ import insidellms from "../images/Inside_llm.png";
 import opencircuit from "../images/open_circuits.png";
 import designtodev from "../images/design_to_dev.png";
 import git_real from "../images/git_real.png";
+import IEnClogo from "../images/IEnC_club.png";
+import MOSSlogo from "../images/moss_github_transp.png";
+import ISTElogo from "../images/ISTE_club.png";
+import ACMlogo from "../images/ACM_logo.png";
+import ACMWlogo from "../images/ACMW_logo.png";
 
 // Clubs mapping - define all available clubs here
 export const CLUBS_MAP = {
   MOSS: {
     id: "club-opensource",
     name: "MOSS",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=opensourceclub",
+    image: MOSSlogo,
     bio: "MOSS",
   },
   ACM: {
     id: "club-acm",
     name: "ACM",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=codemasters",
+    image: ACMlogo,
     bio: "ACM",
   },
   ACMW: {
     id: "club-acmw",
     name: "ACMW",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=acmw",
+    image: ACMWlogo,
     bio: "ACMW",
   },
-  IEnC: {
+  "IE-EnC": {
     id: "club-ienc",
-    name: "IEnC",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=devopsclub",
-    bio: "IEnC",
+    name: "IE-EnC",
+    image: IEnClogo,
+    bio: "IE-EnC",
   },
   ISTE: {
     id: "club-iste",
     name: "ISTE",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=aimlclub",
+    image: ISTElogo,
     bio: "ISTE",
   },
 };
@@ -59,9 +64,25 @@ export const DOMAIN_EVENTS = {
       description:
         "Every digital product starts with the web. This beginner-friendly workshop introduces participants to the fundamentals of web development through a fully hands-on approach.\n\nParticipants will build a simple website using HTML, CSS, and basic JavaScript, learning how structure, styling, and interactivity come together to create functional web pages. The session focuses on clarity and simplicity, making it accessible even to those with no prior experience.\n\nThe workshop concludes with deployment, allowing participants to host their website and turn it into a shareable project — providing an immediate starting point for portfolios and further development.",
       date: "2026-04-6",
-      time: "To Be Decided",
+      time: "5:00 PM",
       location: "To Be Decided",
       instructor: ["Anish", "Vishal Kumar"],
+      speakers: [
+        {
+          id: "speaker-1",
+          name: "Anish",
+          role: "Workshop Instructor",
+          image: "https://github.com/anishhreddy.png",
+          githubUrl: "https://github.com/anishhreddy",
+        },
+        {
+          id: "speaker-2",
+          name: "Vishal Kumar",
+          role: "Workshop Instructor",
+          image: "https://github.com/Vishy-MK.png",
+          githubUrl: "https://github.com/Vishy-MK",
+        },
+      ],
       capacity: 60,
       registered: 0,
       tags: ["HTML", "CSS", "JavaScript"],
@@ -76,9 +97,25 @@ export const DOMAIN_EVENTS = {
       description:
         "Real-world applications require seamless interaction between frontend interfaces, backend systems, and data storage. This workshop provides a practical introduction to full-stack development by guiding participants through building a complete application.\n\nParticipants will set up a backend server, create API endpoints, and connect them to a frontend interface. The session demonstrates how data flows through an application and how different components interact in real-world systems.\n\nBy the end of the workshop, participants will have built and run a functional full-stack application, gaining a clear understanding of system architecture and development workflows used in industry and open-source projects.",
       date: "2026-04-7",
-      time: "To Be Decided",
+      time: "5:00 PM",
       location: "To Be Decided",
       instructor: ["Viraj Rahul Gupta", "Pratyush Misra"],
+      speakers: [
+        {
+          id: "speaker-1",
+          name: "Viraj Rahul Gupta",
+          role: "Workshop Instructor",
+          image: "https://github.com/sparrow7559.png",
+          githubUrl: "https://github.com/sparrow7559",
+        },
+        {
+          id: "speaker-2",
+          name: "Pratyush Misra",
+          role: "Workshop Instructor",
+          image: "https://github.com/PrayatshuMisra.png",
+          githubUrl: "https://github.com/PrayatshuMisra",
+        },
+      ],
       capacity: 60,
       registered: 0,
       tags: ["React", "Node.js", "MongoDB"],
@@ -95,9 +132,32 @@ export const DOMAIN_EVENTS = {
       description:
         "Machine learning is often taught in fragments, but real-world applications require understanding the entire pipeline. This workshop provides a structured, hands-on introduction to building a complete ML project from scratch.\n\nParticipants will define a problem, work with datasets, perform exploratory analysis, and train baseline models. The session emphasizes understanding model performance, handling overfitting, and improving results through simple optimization techniques.\n\nThe workshop concludes with an introduction to deployment, showing how models can be saved and presented through basic interfaces. By the end, participants will have built a functional ML project and gained clarity on how machine learning systems work end-to-end.",
       date: "2026-04-5",
-      time: "To Be Decided",
+      time: "10:00 AM",
       location: "To Be Decided",
       instructor: ["Dhruv Prakash", "Sarah", "Nihal B M"],
+      speakers: [
+        {
+          id: "speaker-1",
+          name: "Dhruv Prakash",
+          role: "Workshop Instructor",
+          image: "https://github.com/Dhruxp.png",
+          githubUrl: "https://github.com/Dhruxp",
+        },
+        {
+          id: "speaker-2",
+          name: "Sarah",
+          role: "Workshop Instructor",
+          image: "https://github.com/sarahk2706.png",
+          githubUrl: "https://github.com/sarahk2706",
+        },
+        {
+          id: "speaker-3",
+          name: "Nihal B M",
+          role: "Workshop Instructor",
+          image: "https://github.com/nihal-bm06.png",
+          githubUrl: "https://github.com/nihal-bm06",
+        },
+      ],
       capacity: 60,
       registered: 0,
       tags: ["Python", "Scikit-learn", "TensorFlow"],
@@ -112,9 +172,25 @@ export const DOMAIN_EVENTS = {
       description:
         "Modern AI systems are powered by large language models, but understanding how they work requires going beyond surface-level usage. This session provides a conceptual deep dive into the architecture and principles behind these systems.\n\nParticipants will explore transformer models, attention mechanisms, tokenization, and embeddings, gaining insight into how models process and generate language. The session also introduces scaling laws and training paradigms that define the performance of modern AI systems.\n\nDesigned for those looking to move beyond basic usage, this workshop connects theory with real-world AI systems and provides a foundation for exploring advanced topics and research directions.",
       date: "2026-04-5",
-      time: "To Be Decided",
+      time: "2:00 PM",
       location: "To Be Decided",
       instructor: ["Mrinal Dhami", "Shreyan"],
+      speakers: [
+        {
+          id: "speaker-1",
+          name: "Mrinal Dhami",
+          role: "Workshop Instructor",
+          image: "https://github.com/sparrow7559.png",
+          githubUrl: "https://github.com/sparrow7559",
+        },
+        {
+          id: "speaker-2",
+          name: "Shreyan",
+          role: "Workshop Instructor",
+          image: "https://github.com/PrayatshuMisra.png",
+          githubUrl: "https://github.com/PrayatshuMisra",
+        },
+      ],
       capacity: 60,
       registered: 0,
       tags: ["Python", "Scikit-learn", "TensorFlow"],
@@ -131,9 +207,39 @@ export const DOMAIN_EVENTS = {
       description:
         "Open source extends beyond software into the world of hardware, powering everything from IoT devices to embedded systems. This session introduces participants to the fundamentals of electronics through a hands-on, simulation-based approach.\n\nParticipants will learn how basic components like resistors, LEDs, and power sources interact within a circuit, and how these designs are created, tested, and shared using open-source tools. Using platforms like EasyEDA or similar environments, they will design and simulate simple circuits without requiring physical components.\n\nThe workshop also explores how hardware projects are documented and contributed to in open-source ecosystems, opening pathways into interdisciplinary domains like IoT and embedded systems.",
       date: "2026-04-3",
-      time: "To Be Decided",
+      time: "2:00 PM",
       location: "To Be Decided",
       instructor: ["Mahi Gupta", "Shreyan", "Pratham", "Sanvi Verma"],
+      speakers: [
+        {
+          id: "speaker-1",
+          name: "Mahi Gupta",
+          role: "Workshop Instructor",
+          image: "https://github.com/sparrow7559.png",
+          githubUrl: "https://github.com/sparrow7559",
+        },
+        {
+          id: "speaker-2",
+          name: "Shreyan",
+          role: "Workshop Instructor",
+          image: "https://github.com/PrayatshuMisra.png",
+          githubUrl: "https://github.com/PrayatshuMisra",
+        },
+        {
+          id: "speaker-3",
+          name: "Pratham",
+          role: "Workshop Instructor",
+          image: "https://github.com/PrayatshuMisra.png",
+          githubUrl: "https://github.com/PrayatshuMisra",
+        },
+        {
+          id: "speaker-4",
+          name: "Saanvi Verma",
+          role: "Workshop Instructor",
+          image: "https://github.com/PrayatshuMisra.png",
+          githubUrl: "https://github.com/PrayatshuMisra",
+        },
+      ],
       capacity: 60,
       registered: 0,
       tags: ["Electronics", "Arduino", "Circuit Design"],
@@ -150,9 +256,25 @@ export const DOMAIN_EVENTS = {
       description:
         "Good software isn't just functional — it's usable. This workshop focuses on the principles of UI/UX design and how they translate into real, working interfaces.\n\nParticipants will learn how to structure layouts, apply visual hierarchy, and think from a user's perspective while designing interfaces. The session goes beyond theory by demonstrating how these designs are implemented using frontend technologies.\n\nThrough guided exercises, participants will take a simple design concept and convert it into a functional interface, understanding how usability, accessibility, and responsiveness play a role in real-world applications. The workshop also highlights how UI/UX improvements are a valuable and accessible entry point into open-source contributions.",
       date: "2026-04-4",
-      time: "To Be Decided",
+      time: "5:00 PM",
       location: "To Be Decided",
       instructor: ["Vishal Kumar", "Nikita Bhonsale"],
+      speakers: [
+        {
+          id: "speaker-1",
+          name: "Vishal Kumar",
+          role: "Workshop Instructor",
+          image: "https://github.com/sparrow7559.png",
+          githubUrl: "https://github.com/sparrow7559",
+        },
+        {
+          id: "speaker-2",
+          name: "Nikita Bhonsale",
+          role: "Workshop Instructor",
+          image: "https://github.com/PrayatshuMisra.png",
+          githubUrl: "https://github.com/PrayatshuMisra",
+        },
+      ],
       capacity: 60,
       registered: 0,
       tags: ["UI/UX", "Figma", "Prototyping"],
@@ -167,9 +289,32 @@ export const DOMAIN_EVENTS = {
       description:
         "Modern software is never built alone — it's built collaboratively, and version control is at the center of it. This hands-on session introduces participants to real-world Git and GitHub workflows used across industry and open-source projects.\n\nParticipants will learn how to track changes, manage code history, work with branches, and collaborate effectively using pull requests. Instead of just learning commands, the session focuses on understanding how developers actually work in teams, resolve conflicts, and maintain clean project histories.\n\nBy the end of the session, participants will be comfortable navigating repositories, contributing to shared codebases, and using Git as a practical tool rather than just a concept.",
       date: "2026-04-3",
-      time: "To Be Decided",
+      time: "10:00 AM",
       location: "To Be Decided",
       instructor: ["Siddhart U", "ACMW m1", "ACMW m2"],
+      speakers: [
+        {
+          id: "speaker-1",
+          name: "Siddhart U",
+          role: "Workshop Instructor",
+          image: "https://github.com/sparrow7559.png",
+          githubUrl: "https://github.com/sparrow7559",
+        },
+        {
+          id: "speaker-2",
+          name: "ACMW m1",
+          role: "Workshop Instructor",
+          image: "https://github.com/PrayatshuMisra.png",
+          githubUrl: "https://github.com/PrayatshuMisra",
+        },
+        {
+          id: "speaker-3",
+          name: "ACMW m2",
+          role: "Workshop Instructor",
+          image: "https://github.com/PrayatshuMisra.png",
+          githubUrl: "https://github.com/PrayatshuMisra",
+        },
+      ],
       capacity: 60,
       registered: 0,
       tags: ["Git", "GitHub", "Version Control"],

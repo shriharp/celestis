@@ -52,6 +52,7 @@ export async function getEventById(domainId, eventId) {
               role: "Workshop Instructor",
               image:
                 "https://api.dicebear.com/7.x/avataaars/svg?seed=" + instructor,
+              githubUrl: "",
             }))
           : [
               {
@@ -61,6 +62,7 @@ export async function getEventById(domainId, eventId) {
                 image:
                   "https://api.dicebear.com/7.x/avataaars/svg?seed=" +
                   event.instructor,
+                githubUrl: "",
               },
             ]),
 

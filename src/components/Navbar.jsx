@@ -16,7 +16,6 @@ import { getDomains } from "../services/eventsService";
 import { supabase } from "../lib/supabase";
 import mossGithubLogo from "../images/moss_github_1.png";
 
-
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
@@ -30,13 +29,8 @@ export default function Navbar() {
 
   useEffect(() => {
     const init = async () => {
-      const res = await getCurrentUser();
-
-      if (res?.success) {
-        setUser(res.user);
-      } else {
-        setUser(null);
-      }
+      const currentUser = await getCurrentUser();
+      setUser(currentUser || null);
 
       setLoading(false);
     };
@@ -150,8 +144,15 @@ export default function Navbar() {
     <nav className="w-full bg-github-header border-b border-github-border text-github-textPrimary sticky top-0 z-50">
       <div className="max-w-[1400px] mx-auto px-4 py-3 sm:px-6 flex items-center justify-between">
         <div className="flex items-center space-x-4">
-          <Link to="/" className="hover:opacity-80 transition-opacity flex items-center">
-            <img src={mossGithubLogo} alt="MOSS GitHub Logo" className="w-12 h-12 object-contain" />
+          <Link
+            to="/"
+            className="hover:opacity-80 transition-opacity flex items-center"
+          >
+            <img
+              src={mossGithubLogo}
+              alt="MOSS GitHub Logo"
+              className="w-12 h-12 object-contain"
+            />
           </Link>
           <div className="hidden md:flex space-x-2">
             <div className="flex bg-github-canvas border border-github-border rounded-md px-2 py-1 items-center min-w-[240px]">
