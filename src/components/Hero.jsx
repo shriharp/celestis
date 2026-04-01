@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useRef, useEffect } from "react";
-import CelestistHeroBG from "../images/Hero_Image.png";
+import CelestistHeroBG from "../images/Hero_image.png";
 
 export default function Hero() {
   const navigate = useNavigate();
