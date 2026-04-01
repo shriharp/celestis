@@ -100,13 +100,6 @@ export default function SpeakersSection({ speakers = [] }) {
           </div>
         ))}
       </div>
-
-      <a
-        href="#"
-        className="inline-block mt-4 text-sm text-github-blue hover:text-github-blueHover transition-colors"
-      >
-        View all speakers →
-      </a>
     </div>
   );
 }

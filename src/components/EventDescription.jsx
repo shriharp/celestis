@@ -38,6 +38,25 @@ export default function EventDescription() {
 
     return count || 0;
   };
+  const handleShare = async () => {
+    const url = window.location.href;
+
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: event.title,
+          text: `Check out this event: ${event.title}`,
+          url,
+        });
+      } else {
+        // 📋 Fallback: copy to clipboard
+        await navigator.clipboard.writeText(url);
+        alert("Link copied to clipboard!");
+      }
+    } catch (err) {
+      console.error("Share failed:", err);
+    }
+  };
   const regId = domainId + "." + eventId;
   // 🔥 Check if user registered
   const checkRegistration = async (userId) => {
@@ -162,7 +181,10 @@ export default function EventDescription() {
             {/* Hero */}
             {event.image && (
               <div className="border border-github-border rounded-lg overflow-hidden mb-6">
-                <img src={event.image} className="h-full object-cover object-center" />
+                <img
+                  src={event.image}
+                  className="h-full object-cover object-center"
+                />
               </div>
             )}
 
@@ -205,7 +227,10 @@ export default function EventDescription() {
                     : "Register"}
               </button>
 
-              <button className="px-4 py-2 border border-github-border rounded-md text-sm flex items-center gap-2 hover:bg-github-canvasHover">
+              <button
+                onClick={handleShare}
+                className="px-4 py-2 border border-github-border rounded-md text-sm flex items-center gap-2 hover:bg-github-canvasHover"
+              >
                 <Share2 className="w-4 h-4" />
                 Share
               </button>

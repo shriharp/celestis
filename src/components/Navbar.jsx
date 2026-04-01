@@ -328,14 +328,14 @@ export default function Navbar() {
 
               {showUserMenu && (
                 <div className="absolute right-0 mt-2 w-48 bg-github-canvas border border-github-border rounded-md">
-                  <div className="px-4 py-3 border-b">{user?.email}</div>
+                  <div className="px-4 py-3 border-b text-ellipsis overflow-hidden">{user?.email}</div>
 
                   <Link
                     to="/profile"
                     onClick={() => setShowUserMenu(false)}
                     className="block px-4 py-2 hover:bg-github-border"
                   >
-                    My Profile
+                    My Events
                   </Link>
 
                   <button
