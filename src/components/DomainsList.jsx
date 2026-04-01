@@ -33,7 +33,7 @@ export default function DomainsList() {
   return (
     <div
       id="domains"
-      className="w-full bg-github-bg py-12 border-b border-github-border"
+      className="w-full bg-github-bg py-12 pt-4 border-b border-github-border"
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between mb-8 border-b border-github-border pb-4">
@@ -47,67 +47,65 @@ export default function DomainsList() {
           {domains.map((domain) => (
             <div
               key={domain.id}
-              className="repo-card flex flex-col group hover:border-github-borderHover transition-all duration-300 transform hover:scale-[1.02] cursor-pointer"
+              className="repo-card flex flex-col group hover:border-github-borderHover transition-all duration-300 transform hover:scale-[1.02] cursor-pointer overflow-hidden"
               onClick={() => navigate(`/domains/${domain.id}`)}
             >
-              <div className="p-6 border-b border-github-border flex justify-between items-start">
+              {/* Header */}
+              <div className="p-6 border-b border-github-border flex justify-between items-start bg-github-canvas">
                 <div className="flex-1">
-                  <h3 className="text-github-blue text-lg font-bold flex items-center hover:underline cursor-pointer transition-colors group-hover:text-github-blue">
-                    <span className="group-hover:text-github-blue transition-colors">
-                      {domain.name}
-                    </span>
+                  <h3 className="text-github-blue text-lg font-bold hover:underline">
+                    {domain.name}
                   </h3>
                 </div>
-                <div
-                  className="px-3 py-1 rounded-full text-xs font-semibold"
-                  style={{
-                    backgroundColor: "var(--color-canvas)",
-                    color: "var(--color-textMuted)",
-                  }}
-                >
+                <div className="px-3 py-1 rounded-full text-xs font-semibold bg-github-canvas text-github-textMuted">
                   Public
                 </div>
               </div>
 
+              {/* 🔥 Image (FULLY VISIBLE) */}
               {domain.image && (
-                <div className="w-full h-40 overflow-hidden border-b border-github-border relative bg-github-canvas group-hover:opacity-90 transition-opacity duration-300">
+                <div className="w-full h-[375px] overflow-hidden relative">
                   <img
                     src={domain.image}
                     alt={domain.name}
-                    className="w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-all duration-300"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     style={{ objectPosition: domain.imagePosition || "center" }}
                   />
+                  <div className="px-0 pb-1 bottom-[-5px] left-0 right-0 z-10 absolute">
+                    <div
+                      className="backdrop-blur-md p-4 shadow-lg"
+                      style={{ backgroundColor: "#0d1117cc" }} // GitHub dark + transparency
+                    >
+                      <div className="space-y-4">
+                        {domain.workshops.map((workshop) => (
+                          <div key={workshop.id}>
+                            <h5 className="font-semibold text-gray-200 text-sm flex items-center mb-2">
+                              <div className="w-2 h-2 rounded-full bg-github-green mr-3" />
+                              {workshop.title}
+                            </h5>
+                            <p className="text-xs text-github-textMuted pl-5 leading-relaxed">
+                              {workshop.desc}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               )}
 
-              <div className="p-6 bg-github-bg flex-grow">
-                <div className="space-y-4">
-                  {domain.workshops.map((workshop) => (
-                    <div
-                      key={workshop.id}
-                      className="flex flex-col hover:opacity-90 transition-opacity"
-                    >
-                      <h5 className="font-semibold text-github-textPrimary text-sm flex items-center mb-2">
-                        <div className="w-2 h-2 rounded-full bg-github-green mr-3" />
-                        {workshop.title}
-                      </h5>
-                      <p className="text-xs text-github-textMuted pl-5 leading-relaxed">
-                        {workshop.desc}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              {/* 🔥 Content overlapping image */}
 
-              <div className="px-6 py-3 bg-github-canvas border-t border-github-border text-xs text-github-textMuted flex items-center justify-between rounded-b-md transition-all duration-200 group-hover:text-github-blue">
+              {/* Footer */}
+              <div className="px-6 py-3 border-t border-github-border text-xs text-github-textMuted flex items-center justify-between bg-github-canvas">
                 <div className="flex items-center space-x-4">
                   <div className="flex items-center">
                     <span
                       className={`w-2 h-2 rounded-full bg-${domain.color} mr-2`}
-                    />{" "}
+                    />
                     Markdown
                   </div>
-                  <div className="flex items-center cursor-pointer transition-colors">
+                  <div className="flex items-center">
                     <GitBranch className="w-3.5 h-3.5 mr-1" /> 1 branch
                   </div>
                 </div>
