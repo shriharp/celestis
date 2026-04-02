@@ -9,6 +9,7 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [usersInfo, setUsersInfo] = useState([]);
+  const [dashboardStats, setDashboardStats] = useState(null);
   
   // Modal state
   const [showAddModal, setShowAddModal] = useState(false);
@@ -67,6 +68,7 @@ export default function AdminDashboard() {
 
       // 3. Map registrations to user and get event details
       const userMap = {};
+      const workshopCounts = {};
       
       for (const p of profiles) {
         userMap[p.id] = { ...p, enrolledEvents: [] };
@@ -75,16 +77,25 @@ export default function AdminDashboard() {
       for (const reg of regs) {
         if (!userMap[reg.user_id] || !reg.workshop_id) continue;
 
+        let eventTitle = reg.workshop_id;
         try {
           const [domainId, workshopId] = String(reg.workshop_id).split(".");
           const event = await getEventById(domainId, workshopId);
-          userMap[reg.user_id].enrolledEvents.push(event.title);
+          eventTitle = event.title;
         } catch (e) {
-          userMap[reg.user_id].enrolledEvents.push(reg.workshop_id || "Unknown");
+          eventTitle = reg.workshop_id || "Unknown";
         }
+        
+        userMap[reg.user_id].enrolledEvents.push(eventTitle);
+        workshopCounts[eventTitle] = (workshopCounts[eventTitle] || 0) + 1;
       }
 
       setUsersInfo(Object.values(userMap));
+      setDashboardStats({
+        totalUsers: profiles.length,
+        totalRegistrations: regs.length,
+        workshopCounts
+      });
     } catch (err) {
       console.error("Failed to load admin data", err);
     } finally {
@@ -106,6 +117,7 @@ export default function AdminDashboard() {
       
       // Update UI
       setUsersInfo(prev => prev.filter(u => u.id !== userId));
+      loadDashboardData(); // Refresh stats and users in the background
     } catch (err) {
       console.error("Error deleting user:", err);
       alert("Failed to delete user. Make sure RLS is disabled or allows deletes.");
@@ -167,6 +179,38 @@ export default function AdminDashboard() {
             Add User
           </button>
         </div>
+
+        {/* Statistics Cards */}
+        {dashboardStats && (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div className="bg-github-canvas border border-github-border rounded-lg p-6 flex flex-col justify-center shadow-sm">
+              <span className="text-github-textMuted text-sm font-semibold uppercase tracking-wider mb-2">Total Users</span>
+              <span className="text-4xl font-bold text-github-blue">{dashboardStats.totalUsers}</span>
+            </div>
+            
+            <div className="bg-github-canvas border border-github-border rounded-lg p-6 flex flex-col justify-center shadow-sm">
+              <span className="text-github-textMuted text-sm font-semibold uppercase tracking-wider mb-2">Total Registrations</span>
+              <span className="text-4xl font-bold text-github-green">{dashboardStats.totalRegistrations}</span>
+            </div>
+
+            <div className="bg-github-canvas border border-github-border rounded-lg p-6 shadow-sm overflow-hidden flex flex-col">
+              <span className="text-github-textMuted text-sm font-semibold uppercase tracking-wider mb-3">By Workshop</span>
+              <div className="overflow-y-auto max-h-32 pr-2 space-y-2">
+                {Object.entries(dashboardStats.workshopCounts)
+                  .sort((a, b) => b[1] - a[1])
+                  .map(([title, count]) => (
+                    <div key={title} className="flex justify-between items-center text-sm border-b border-github-border/50 pb-1 last:border-0 last:pb-0">
+                      <span className="truncate pr-4 text-github-textPrimary">{title}</span>
+                      <span className="font-semibold bg-github-border px-2 py-0.5 rounded-full text-xs">{count}</span>
+                    </div>
+                ))}
+                {Object.keys(dashboardStats.workshopCounts).length === 0 && (
+                  <span className="text-xs text-github-textMuted italic">No event registrations yet.</span>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Users Table */}
         <div className="border border-github-border rounded-lg bg-github-canvas overflow-x-auto">
