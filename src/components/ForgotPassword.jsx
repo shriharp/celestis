@@ -107,7 +107,7 @@ export default function ForgotPassword() {
                   name="registrationNumber"
                   value={formData.registrationNumber}
                   onChange={handleChange}
-                  placeholder="e.g. 22BCE1234"
+                //  placeholder="e.g. 22BCE1234"
                   className="w-full pl-10 pr-4 py-2.5 rounded-md bg-github-bg border border-github-border focus:border-github-blue outline-none"
                   disabled={loading}
                 />
@@ -125,7 +125,7 @@ export default function ForgotPassword() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="you@example.com"
+                //  placeholder="you@example.com"
                   className="w-full pl-10 pr-4 py-2.5 rounded-md bg-github-bg border border-github-border focus:border-github-blue outline-none"
                   disabled={loading}
                 />
