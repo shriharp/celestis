@@ -7,10 +7,17 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
+
+const HERO_IMAGE_CANDIDATES = [
+  "/images/Hero_image.png",
+  "/Hero_image.png",
+  "/images/hero_image.png",
+];
 
 export default function Hero() {
   const navigate = useNavigate();
+  const [heroImgIndex, setHeroImgIndex] = useState(0);
   // 🔥 ref for h1
   const headingRef = useRef(null);
   useEffect(() => {
@@ -95,18 +102,30 @@ export default function Hero() {
           <span className="text-github-blue font-semibold">README.md</span>
         </div>
 
-        {/* Main Content */}
-        <div className="mb-12 relative flex flex-col lg:flex-row items-center gap-10">
+        {/* Main Content — art fills full hero height, right-aligned + cover (see reference) */}
+        <div className="mb-12 hero-banner relative flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-10 rounded-lg border border-github-border px-6 py-10 lg:px-14 lg:py-12 min-h-[480px] md:min-h-[540px] lg:min-h-[560px] overflow-hidden">
+          <img
+            src={HERO_IMAGE_CANDIDATES[heroImgIndex]}
+            alt=""
+            aria-hidden
+            className="hero-banner-art pointer-events-none absolute inset-y-0 -right-[4%] z-0 h-full w-[92%] max-w-none object-cover object-right select-none sm:-right-[2%] sm:w-[88%] md:w-[82%] lg:-right-0 lg:w-[76%]"
+            onError={() =>
+              setHeroImgIndex((i) =>
+                i + 1 < HERO_IMAGE_CANDIDATES.length ? i + 1 : i,
+              )
+            }
+          />
+          <div className="hero-banner-fade" aria-hidden />
           {/* LEFT: TEXT */}
-          <div className="flex-1 relative z-10">
+          <div className="flex-1 relative z-10 w-full text-left lg:max-w-[48%] xl:max-w-[44%]">
             <div className="flex items-center gap-3 mb-6">
-              <Sparkles className="w-6 h-6 text-github-green" />
+              <Sparkles className="w-6 h-6 shrink-0 text-github-green" />
               <span className="text-github-green font-semibold text-sm tracking-wide">
-                CELESTIS - MOSS's official Open Source Week (3rd to 7th April)
+                CELESTIS - MOSS&apos;s official Open Source Week (3rd to 9th April)
               </span>
             </div>
 
-            <h1 className="cinzel text-5xl font-semibold md:text-6xl font-black tracking-tight mb-6 text-github-textPrimary leading-tight">
+            <h1 className="cinzel hero-banner-title uppercase text-4xl font-semibold sm:text-5xl md:text-6xl font-black tracking-tight mb-6 leading-tight">
               Welcome to Celestis
             </h1>
 
@@ -120,11 +139,13 @@ export default function Hero() {
               .
             </p>
 
-            <p className="text-base text-github-textMuted max-w-2xl leading-relaxed mb-8">
+            <p className="text-base text-github-textMuted max-w-2xl leading-relaxed mb-2">
               Grow from beginners to skilled contributors
-              <br />
+            </p>
+            <p className="text-base text-github-textMuted max-w-2xl leading-relaxed mb-8">
               <span className="text-github-blue font-semibold">
-                Become the <span className="cinzel">Huanglong Warrior</span>
+                Become the{" "}
+                <span className="cinzel uppercase">Huanglong Warrior</span>
               </span>{" "}
               : Master of All Domains.
             </p>
@@ -144,11 +165,6 @@ export default function Hero() {
                 My Events
               </button>
             </div>
-          </div>
-
-          {/* Background Gradient (Removed Image) */}
-          <div className="hidden w-full lg:block absolute top-0 left-0 h-full pointer-events-none">
-            <div className="absolute inset-0 hero-gradient opacity-60" />
           </div>
         </div>
 

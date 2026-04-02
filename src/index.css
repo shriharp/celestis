@@ -42,6 +42,106 @@ html {
   font-optical-sizing: auto;
   font-style: normal;
 }
+
+/* Landing hero: artwork is an <img> in Hero.jsx; fade is .hero-banner-fade */
+.hero-banner {
+  position: relative;
+}
+
+.github-dark .hero-banner {
+  background-color: #0a0a0f;
+}
+
+.github-light .hero-banner {
+  background-color: #f6f8fa;
+}
+
+.celestis .hero-banner {
+  background-color: #0a0e27;
+}
+
+.github-dark .hero-banner-title,
+.celestis .hero-banner-title {
+  color: #f0f6fc;
+}
+
+.github-light .hero-banner-title {
+  color: var(--color-text-primary);
+}
+
+.hero-banner-fade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Smooth fade over art (translucent image shows card tone through it) */
+.github-dark .hero-banner-fade {
+  background: linear-gradient(
+    to right,
+    #0a0a0f 0%,
+    #0a0a0f 20%,
+    rgba(10, 10, 15, 0.92) 30%,
+    rgba(10, 10, 15, 0.55) 40%,
+    rgba(10, 10, 15, 0.22) 48%,
+    rgba(10, 10, 15, 0.06) 56%,
+    rgba(10, 10, 15, 0) 64%,
+    rgba(10, 10, 15, 0) 100%
+  );
+}
+
+.github-light .hero-banner-fade {
+  background: linear-gradient(
+    to right,
+    #f6f8fa 0%,
+    #f6f8fa 24%,
+    rgba(246, 248, 250, 0.88) 34%,
+    rgba(246, 248, 250, 0.45) 44%,
+    rgba(246, 248, 250, 0.12) 54%,
+    rgba(246, 248, 250, 0) 64%
+  );
+}
+
+.celestis .hero-banner-fade {
+  background: linear-gradient(
+    to right,
+    #0a0e27 0%,
+    #0a0e27 20%,
+    rgba(10, 14, 39, 0.9) 30%,
+    rgba(10, 14, 39, 0.48) 40%,
+    rgba(10, 14, 39, 0.18) 48%,
+    rgba(10, 14, 39, 0.04) 56%,
+    rgba(10, 14, 39, 0) 64%,
+    rgba(10, 14, 39, 0) 100%
+  );
+}
+
+/* Shift art right + zoom; translucent (no brightness boost) */
+.github-dark .hero-banner-art,
+.github-light .hero-banner-art,
+.celestis .hero-banner-art {
+  transform: scale(1.18) translateX(7%);
+  transform-origin: right center;
+  opacity: 0.3;
+  mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.28) 6%,
+    rgba(0, 0, 0, 0.85) 14%,
+    black 20%,
+    black 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.28) 6%,
+    rgba(0, 0, 0, 0.85) 14%,
+    black 20%,
+    black 100%
+  );
+}
+
 /* GitHub Light Theme */
 .github-light {
   --color-bg: #ffffff;
