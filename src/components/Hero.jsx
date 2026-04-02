@@ -42,7 +42,7 @@ export default function Hero() {
         <div className="flex items-center justify-between mb-6 pb-4 border-b border-github-border">
           <div className="flex items-center">
             <img
-              src="../assets/moss_transparent.png"
+              src="../public/images/moss_github_transp.png"
               alt="avatar"
               className="w-9 h-8 rounded-full"
             />
